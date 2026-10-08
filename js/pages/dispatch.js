@@ -27,8 +27,12 @@ function renderDispatchPage() {
       })
       .join("");
 
-    const isLate = order.status === "delivered" && order.deliveredAt && new Date(order.deliveredAt) > new Date(order.estimatedDelivery);
-    const isLateDispatch = order.status === "dispatched" && new Date() > new Date(order.estimatedDelivery);
+    const estimatedEnd = new Date(order.estimatedDelivery + "T23:59:59");
+    const isLate =
+      order.status === "delivered" &&
+      order.deliveredAt &&
+      new Date(order.deliveredAt) > estimatedEnd;
+    const isLateDispatch = order.status === "dispatched" && new Date() > estimatedEnd;
 
     let statusBadge = "";
     const statusMap = {
@@ -88,7 +92,7 @@ function markDispatched(orderId) {
     order.dispatchedAt = new Date().toISOString();
     showToast(t("dispatch_notification") + orderId, "info");
     renderDispatchPage();
-    applyLang(getLang());
+    applyLang();
   }
 }
 
@@ -99,7 +103,7 @@ function markDelivered(orderId) {
     order.deliveredAt = new Date().toISOString();
     showToast(t("dispatch_notification") + orderId, "success");
     renderDispatchPage();
-    applyLang(getLang());
+    applyLang();
   }
 }
 

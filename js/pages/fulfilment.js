@@ -85,7 +85,7 @@ function renderFulfilmentPage() {
 function handleDateChange() {
   selectedDeliveryDate = document.getElementById("delivery-date").value;
   renderFulfilmentPage();
-  applyLang(getLang());
+  applyLang();
 }
 
 document.addEventListener("DOMContentLoaded", () => {

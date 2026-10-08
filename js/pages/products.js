@@ -135,7 +135,7 @@ function renderProductForm() {
       </div>
       <div class="form-group">
         <label class="form-label" data-i18n="products_price">${t("products_price")}</label>
-        <input type="number" class="form-input" id="form-price" value="${editing ? editing.factoryPrice : ""}" step="0.5" min="0" />
+        <input type="number" class="form-input" id="form-price" value="${editing ? editing.factoryPrice : ""}" step="100" min="0" />
       </div>
       <div style="display:flex; gap:var(--space-2);">
         <button class="btn btn-secondary" onclick="cancelForm()" data-i18n="products_cancel">${t("products_cancel")}</button>
@@ -146,18 +146,8 @@ function renderProductForm() {
 }
 
 function renderCatalogPreview() {
-  // Show catalog preview reflecting tier choices
-  // For exclusive suppliers, hide other brands in same category
-  const exclusiveCategories = SUPPLIERS.filter((s) => s.tier === "exclusive").map((s) => s.category);
-  const visibleProducts = PRODUCTS.filter((p) => {
-    if (p.hidden) return false;
-    if (exclusiveCategories.includes(p.categoryId)) {
-      // Only show products from the exclusive supplier
-      const supplier = getSupplierById(p.supplierId);
-      return supplier && supplier.tier === "exclusive";
-    }
-    return true;
-  });
+  // Preview mirrors customer catalog: exclusive hides other brands in that category
+  const visibleProducts = getVisibleCatalogProducts();
 
   if (visibleProducts.length === 0) {
     return `<div class="empty-state"><div class="empty-icon">📦</div><h3 data-i18n="catalog_no_products">${t("catalog_no_products")}</h3></div>`;
@@ -172,7 +162,7 @@ function renderCatalogPreview() {
         ${isExclusive ? `<span class="exclusive-tag" data-i18n="products_tier_exclusive">${t("products_tier_exclusive")}</span>` : ""}
         <div class="product-icon">${category ? category.icon : "📦"}</div>
         <div class="product-name">${getProductName(p)}</div>
-        <div class="product-size">${p.sizeAr}</div>
+        <div class="product-size">${getProductSize(p)}</div>
         <div class="factory-price">${formatPrice(p.factoryPrice)}</div>
       </div>
     `;
@@ -185,21 +175,21 @@ function toggleAddForm() {
   showAddForm = !showAddForm;
   editingProductId = null;
   renderProductsPage();
-  applyLang(getLang());
+  applyLang();
 }
 
 function startEdit(productId) {
   editingProductId = productId;
   showAddForm = false;
   renderProductsPage();
-  applyLang(getLang());
+  applyLang();
 }
 
 function cancelForm() {
   showAddForm = false;
   editingProductId = null;
   renderProductsPage();
-  applyLang(getLang());
+  applyLang();
 }
 
 function saveProduct() {
@@ -216,8 +206,7 @@ function saveProduct() {
   if (editingProductId) {
     const p = getProductById(editingProductId);
     if (p) {
-      const lang = getLang();
-      if (lang === "ar") { p.nameAr = name; } else { p.nameEn = name; }
+      p.nameAr = name;
       p.categoryId = categoryId;
       p.supplierId = supplierId;
       p.factoryPrice = price;
@@ -226,8 +215,8 @@ function saveProduct() {
     const newId = "p" + (PRODUCTS.length + 1);
     PRODUCTS.push({
       id: newId, categoryId, supplierId,
-      nameAr: name, nameEn: name,
-      sizeAr: "1 كغ", sizeEn: "1kg",
+      nameAr: name,
+      sizeAr: "1 كغ",
       factoryPrice: price, retailPrice: null, hidden: false,
     });
   }
@@ -236,7 +225,7 @@ function saveProduct() {
   editingProductId = null;
   showToast(t("products_save") + " ✓", "success");
   renderProductsPage();
-  applyLang(getLang());
+  applyLang();
 }
 
 function toggleHide(productId) {
@@ -244,7 +233,7 @@ function toggleHide(productId) {
   if (p) {
     p.hidden = !p.hidden;
     renderProductsPage();
-    applyLang(getLang());
+    applyLang();
   }
 }
 
@@ -253,7 +242,7 @@ function changeTier(supplierId, newTier) {
   if (s) {
     s.tier = newTier;
     renderProductsPage();
-    applyLang(getLang());
+    applyLang();
   }
 }
 

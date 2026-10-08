@@ -9,7 +9,6 @@ function renderCatalog() {
   const container = document.getElementById("page-content");
   if (!container) return;
 
-  // Category chips
   const chips = [`<button class="category-chip ${selectedCategory === "all" ? "active" : ""}" onclick="selectCategory('all')" data-i18n="catalog_all">${t("catalog_all")}</button>`];
   CATEGORIES.forEach((cat) => {
     chips.push(
@@ -17,7 +16,6 @@ function renderCatalog() {
     );
   });
 
-  // Check expired subscription
   const isExpired = window.currentUser && window.currentUser.subscriptionStatus === "expired";
   let renewalBanner = "";
   if (isExpired) {
@@ -29,10 +27,8 @@ function renderCatalog() {
     `;
   }
 
-  // Products
   let productsHtml = "";
   if (selectedCategory === "frozen") {
-    // Empty category
     productsHtml = `
       <div class="empty-state">
         <div class="empty-icon">📦</div>
@@ -40,7 +36,7 @@ function renderCatalog() {
       </div>
     `;
   } else {
-    let filtered = PRODUCTS.filter((p) => !p.hidden);
+    let filtered = getVisibleCatalogProducts();
     if (selectedCategory !== "all") {
       filtered = filtered.filter((p) => p.categoryId === selectedCategory);
     }
@@ -67,12 +63,12 @@ function renderCatalog() {
             ${isExclusive ? `<span class="exclusive-tag" data-i18n="products_tier_exclusive">${t("products_tier_exclusive")}</span>` : ""}
             <div class="product-icon">${category ? category.icon : "📦"}</div>
             <div class="product-name">${getProductName(p)}</div>
-            <div class="product-size">${p.sizeAr} · ${getSupplierName(supplier)}</div>
+            <div class="product-size">${getProductSize(p)} · ${getSupplierName(supplier)}</div>
             <div class="price-row">
               <span class="factory-price">${formatPrice(p.factoryPrice)}</span>
               ${p.retailPrice ? `<span class="retail-price">${formatPrice(p.retailPrice)}</span>` : ""}
             </div>
-            ${p.retailPrice ? `<span class="saving-badge" data-i18n="catalog_save">${t("catalog_save")} ${formatPrice(saving)} (${savingPct}%)</span>` : ""}
+            ${p.retailPrice ? `<span class="saving-badge">${t("catalog_save")} ${formatPrice(saving)} (${savingPct}%)</span>` : ""}
             <button class="btn btn-primary btn-sm btn-block" onclick="handleAddToCart('${p.id}')" data-i18n="catalog_add_to_cart">${t("catalog_add_to_cart")}</button>
           </div>
         `;
@@ -92,8 +88,7 @@ function renderCatalog() {
 function selectCategory(catId) {
   selectedCategory = catId;
   renderCatalog();
-  // Re-apply translations for static elements
-  applyLang(getLang());
+  applyLang();
 }
 
 function handleAddToCart(productId) {

@@ -27,7 +27,7 @@ function renderCartPage() {
   }
 
   const cityOptions = CITIES.map(
-    (c) => `<option value="${c.id}" ${window.currentUser && window.currentUser.city === c.id ? "selected" : ""}>${getCityName(c)}${c.available ? "" : " — " + (getLang() === "ar" ? "غير متاح" : "Not available")}</option>`
+    (c) => `<option value="${c.id}" ${window.currentUser && window.currentUser.city === c.id ? "selected" : ""}>${getCityName(c)}${c.available ? "" : " — " + t("city_unavailable")}</option>`
   ).join("");
 
   const rows = cart.map((item) => {
@@ -41,7 +41,7 @@ function renderCartPage() {
             <span style="font-size:1.5rem;">${category ? category.icon : "📦"}</span>
             <div>
               <div style="font-weight:600;">${getProductName(p)}</div>
-              <div style="font-size:0.8rem; color:var(--neutral-500);">${p.sizeAr}</div>
+              <div style="font-size:0.8rem; color:var(--neutral-500);">${getProductSize(p)}</div>
             </div>
           </div>
         </td>
@@ -141,14 +141,14 @@ function handleCityChange() {
 function handleQtyChange(productId, qty) {
   updateCartQty(productId, parseInt(qty) || 1);
   renderCartPage();
-  applyLang(getLang());
+  applyLang();
 }
 
 function handleRemove(productId) {
   if (confirm(t("cart_remove_confirm"))) {
     removeFromCart(productId);
     renderCartPage();
-    applyLang(getLang());
+    applyLang();
   }
 }
 
@@ -184,7 +184,7 @@ function handleCheckout() {
   checkoutDone = true;
   updateCartBadge();
   renderCartPage();
-  applyLang(getLang());
+  applyLang();
 }
 
 function renderCheckoutConfirmation(container) {

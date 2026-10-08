@@ -1,53 +1,40 @@
-# حصري (Haseri) — Grocery Subscription Mock-up
+# حصري — نموذج اشتراك التموين
 
-A clickable, static mock-up of an affordable grocery subscription service in Syria.
-Built with plain HTML, CSS, and JavaScript. No backend, no database, no build step required.
+نموذج تجريبي ثابت (HTML / CSS / JS) لاشتراك تموين بأسعار المصنع في سوريا.
+واجهة عربية فقط (RTL). لا خلفية ولا قاعدة بيانات ولا خطوة بناء.
 
 ## How to Open
 
-1. Download/clone this folder.
-2. Double-click `index.html` to open in your browser.
-3. That's it — every page is a standalone HTML file that links to shared CSS and JS.
+1. Open this folder.
+2. Double-click `index.html` to open it in your browser.
+3. Click through the pages — every screen is a standalone HTML file using shared CSS/JS.
 
-> Alternatively, run a local server: `npx serve` or `python -m http.server` in this folder, then visit the shown URL.
+> Tip: if your browser blocks scripts on `file://`, run `python3 -m http.server` in this folder and open the URL it prints.
 
 ## Folder Structure
 
 ```
 .
-├── index.html          # Home page (US-01)
-├── catalog.html        # Catalog page (US-02)
-├── signup.html         # Sign-up page (US-03)
-├── subscribe.html      # Subscribe + Sham Cash mock payment (US-04, US-05)
+├── index.html          # Home (US-01)
+├── catalog.html        # Catalog (US-02)
+├── signup.html         # Sign-up (US-03)
+├── subscribe.html      # Subscribe + Sham Cash mock (US-04, US-05)
 ├── cart.html           # Cart & checkout (US-06)
 ├── orders.html         # Orders with status (US-07)
 ├── order-history.html  # Order history (US-08)
-├── account.html        # Account & subscription management (US-09)
+├── account.html        # Account & subscription (US-09)
 ├── admin.html          # Admin dashboard (US-10)
-├── fulfilment.html     # Fulfilment: orders grouped by product (US-11)
-├── dispatch.html       # Dispatch: mark dispatched/delivered (US-12)
+├── fulfilment.html     # Fulfilment by product (US-11)
+├── dispatch.html       # Dispatch / deliver (US-12)
 ├── products.html       # Product & tier management (US-13, US-14)
-├── css/
-│   └── style.css       # All styles
+├── css/style.css
 ├── js/
-│   ├── data.js         # All demo data + $5 subscription constant
-│   ├── i18n.js         # Arabic/English translations & RTL/LTR switching
-│   ├── common.js       # Shared utilities (header, footer, cart, toast)
-│   └── pages/          # One JS file per page
-│       ├── home.js
-│       ├── catalog.js
-│       ├── signup.js
-│       ├── subscribe.js
-│       ├── cart.js
-│       ├── orders.js
-│       ├── order-history.js
-│       ├── account.js
-│       ├── admin.js
-│       ├── fulfilment.js
-│       ├── dispatch.js
-│       └── products.js
-├── assets/             # (empty — placeholder for future images)
-└── README.md           # This file
+│   ├── data.js         # Demo data + SUBSCRIPTION_FEE (500 SYP)
+│   ├── i18n.js         # Arabic UI strings (RTL)
+│   ├── common.js       # Header, footer, cart, toast
+│   └── pages/          # One script per page
+├── assets/             # Placeholder icons (no external images)
+└── README.md
 ```
 
 ## Screen List & User Story Mapping
@@ -71,47 +58,64 @@ Built with plain HTML, CSS, and JavaScript. No backend, no database, no build st
 
 ## Demo Toggles & Special Inputs
 
-### Language Toggle
-- Click the **English / العربية** button in the header to switch between Arabic (RTL) and English (LTR).
-- The choice persists in localStorage.
+### Language
+- Arabic (RTL) only — no English version.
 
-### Sign-Up Duplicate Phone Demo
-- On the sign-up page, enter phone number **`0000`** to see the "This number is already in use" error.
+### رقم مكرر عند التسجيل
+- أدخل الهاتف **`0000`** لرؤية: «هذا الرقم مستخدم بالفعل».
 
-### Admin Dashboard Data/Empty Toggle
-- On the admin dashboard, click the toggle switch to flip between showing demo data and an empty state (all zeros).
-
-### Sham Cash Mock Payment
-- On the subscribe page, clicking "Confirm & Pay" opens a Sham Cash modal.
-- **Pay** = simulated success (subscription activates, redirect to catalog).
-- **Cancel** = simulated failure (error toast shown).
+### دفع Sham Cash (وهمي)
+- اشترك → **تأكيد والدفع** يفتح نافذة Sham Cash.
+- **ادفع** = نجاح + تفعيل الاشتراك.
+- **إلغاء** = فشل. لا دفع حقيقي.
 
 ### Cart Delivery Restriction
-- Selecting a city other than Damascus shows "Delivery is not yet available in your city" and disables checkout.
+- City other than Damascus → “Delivery is not yet available in your city” and checkout disabled.
+- Cart is pre-seeded with sample items so checkout is demoable on open.
 
 ### Expired Subscription
-- The demo user's subscription is active by default. To see the expired state, go to Account → Cancel Subscription, then try adding products in the catalog — a renewal prompt will appear.
+- Account → demo buttons **Active / Expired / Cancelled**.
+- With **Expired**, adding to cart (or visiting catalog) shows the renewal prompt.
 
-### Frozen Goods Category
-- In the catalog, clicking the "Frozen Goods / المجمدات" category shows "This category is currently unavailable" (intentionally empty).
+### Cancel Subscription
+- Account → **Cancel Subscription** → confirmation → status message: “Ends at end of current period.”
+
+### Admin Dashboard Empty State
+- Toggle on the admin page switches between demo numbers and all zeros.
+
+### Order History Empty State
+- Toggle on order history switches between sample orders and “You have no orders yet” + catalog link.
+
+### Empty Catalog Category
+- Catalog → **Frozen Goods / المجمدات** → “This category is currently unavailable.”
 
 ### Product Without Retail Price
-- "Brown Sugar / سكر بني" in the Sugar category has no retail price — only the factory price is shown (no savings badge).
+- **سميد الناصر / Al-Nasser Semolina** shows factory price only (no savings).
 
-### Tier Management & Catalog Preview
-- On the Products page, change a supplier's tier between Standard and Exclusive.
-- The catalog preview at the bottom updates: exclusive tiers hide other brands in that category, standard shows all.
+### Syrian brands in the catalog
+- حسين الناصر، سيدي هشام، المراعي، الدرة، هنا، الراعي، الغوطة، أبيدو، السمير/الحسني — plus a competing baladi ghee pack for the exclusive-tier demo.
+
+### Tier Preview
+- Products page → change supplier tier. Exclusive hides other brands in that category. **المراعي** is exclusive for ghee/dairy fats; switching it to standard reveals **سمن بلدي** again.
+
+### Dispatch Late Flag
+- ORD-003 was delivered after its estimated date and shows a **Late** badge.
+
+### Fulfilment Unpaid Orders
+- ORD-004 is unpaid and does not appear when grouping Damascus orders by product.
 
 ## Subscription Fee
 
-The monthly fee is set as a constant at the top of `js/data.js`:
+In `js/data.js`:
+
 ```js
-const SUBSCRIPTION_FEE = 5; // $5/month
+const SUBSCRIPTION_FEE = 500; // 500 SYP / month
 ```
-Change this number to update the price everywhere.
+
+All prices display in SYP (ل.س). Change that constant to update the fee across the mock-up.
 
 ## Notes
 
-- All data is in-memory. Reloading the page resets the cart and any changes made.
-- Sample orders include one each in confirmed, dispatched, and delivered states.
-- Sample customers include one active, one expired, and one cancelled.
+- All demo state lives in JavaScript memory. Reloading a page resets cart, language, and edits.
+- Sample customers: active, expired, cancelled.
+- Sample orders for the demo user: confirmed, dispatched, and delivered (one each).

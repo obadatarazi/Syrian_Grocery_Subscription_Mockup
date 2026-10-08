@@ -96,7 +96,7 @@ function renderAdminPage() {
 function toggleDataMode() {
   window.adminShowData = !window.adminShowData;
   renderAdminPage();
-  applyLang(getLang());
+  applyLang();
 }
 
 document.addEventListener("DOMContentLoaded", () => {

@@ -11,8 +11,8 @@ function renderSubscribePage() {
     <h1 class="page-title" data-i18n="subscribe_title">${t("subscribe_title")}</h1>
     <div class="card subscribe-card">
       <div class="shamcash-logo">🛒</div>
-      <div class="plan-price">$${SUBSCRIPTION_FEE}</div>
-      <div class="plan-period" data-i18n="subscribe_fee">$5/month</div>
+      <div class="plan-price">${formatPrice(SUBSCRIPTION_FEE)}</div>
+      <div class="plan-period">${formatPrice(SUBSCRIPTION_FEE)} شهرياً</div>
       <ul class="benefits-list">
         <li data-i18n="subscribe_benefit1">${t("subscribe_benefit1")}</li>
         <li data-i18n="subscribe_benefit2">${t("subscribe_benefit2")}</li>
@@ -32,7 +32,7 @@ function openShamCash() {
       <div class="modal-body">
         <div class="shamcash-logo">💳</div>
         <div class="shamcash-amount">
-          <span data-i18n="shamcash_amount">${t("shamcash_amount")}</span>: $${SUBSCRIPTION_FEE}
+          <span data-i18n="shamcash_amount">${t("shamcash_amount")}</span>: ${formatPrice(SUBSCRIPTION_FEE)}
         </div>
       </div>
       <div class="modal-footer">

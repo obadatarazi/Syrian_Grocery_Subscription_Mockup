@@ -1,23 +1,21 @@
 // Haseri (حصري) — Common utilities and shared components
 
-// === Currency formatting ===
+// === Currency formatting (ل.س) ===
 function formatPrice(price) {
-  return `$${price.toFixed(2)}`;
+  const n = Number(price) || 0;
+  const formatted = Math.round(n).toLocaleString("ar-SY");
+  return `${formatted} ل.س`;
 }
 
 // === Date formatting ===
 function formatDate(dateStr) {
-  const lang = getLang();
   const date = new Date(dateStr);
-  if (lang === "ar") {
-    return date.toLocaleDateString("ar", { year: "numeric", month: "long", day: "numeric" });
-  }
-  return date.toLocaleDateString("en", { year: "numeric", month: "long", day: "numeric" });
+  return date.toLocaleDateString("ar", { year: "numeric", month: "long", day: "numeric" });
 }
 
 function formatDateShort(dateStr) {
   const date = new Date(dateStr);
-  return date.toLocaleDateString("en", { year: "numeric", month: "short", day: "numeric" });
+  return date.toLocaleDateString("ar", { year: "numeric", month: "short", day: "numeric" });
 }
 
 // === Estimated delivery date (2 days from now) ===
@@ -45,13 +43,28 @@ function getCityById(id) {
 }
 
 function getLocalizedField(obj, field) {
-  const lang = getLang();
-  const key = field + (lang === "ar" ? "Ar" : "En");
-  return obj[key] || obj[field + "En"] || "";
+  return obj[field + "Ar"] || obj[field] || "";
 }
 
 function getProductName(p) {
   return getLocalizedField(p, "name");
+}
+
+function getProductSize(p) {
+  return getLocalizedField(p, "size");
+}
+
+/** Products visible in the customer catalog, respecting exclusive tiers and hidden flag */
+function getVisibleCatalogProducts() {
+  const exclusiveCategories = SUPPLIERS.filter((s) => s.tier === "exclusive").map((s) => s.category);
+  return PRODUCTS.filter((p) => {
+    if (p.hidden) return false;
+    if (exclusiveCategories.includes(p.categoryId)) {
+      const supplier = getSupplierById(p.supplierId);
+      return supplier && supplier.tier === "exclusive";
+    }
+    return true;
+  });
 }
 
 function getCategoryName(c) {
@@ -142,8 +155,6 @@ function showToast(message, type = "info") {
 
 // === Header component ===
 function renderHeader(activePage) {
-  const lang = getLang();
-  const isRTL = lang === "ar";
   const brand = t("brand_name");
 
   const navItems = [
@@ -181,7 +192,7 @@ function renderHeader(activePage) {
     <header class="site-header">
       <div class="header-inner">
         <div class="header-left">
-          <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menu">
+          <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="القائمة">
             <span></span><span></span><span></span>
           </button>
           <a href="index.html" class="brand">
@@ -199,11 +210,10 @@ function renderHeader(activePage) {
           </div>
         </nav>
         <div class="header-right">
-          <a href="cart.html" class="cart-link" aria-label="Cart">
+          <a href="cart.html" class="cart-link" aria-label="السلة">
             <span class="cart-icon">🛍️</span>
             <span class="cart-badge" id="cart-badge" style="display:${cartCount > 0 ? "flex" : "none"}">${cartCount}</span>
           </a>
-          <button class="lang-toggle" id="lang-toggle" data-i18n="lang_toggle">${t("lang_toggle")}</button>
         </div>
       </div>
     </header>
@@ -212,7 +222,6 @@ function renderHeader(activePage) {
 
 // === Footer component ===
 function renderFooter() {
-  const lang = getLang();
   return `
     <footer class="site-footer">
       <div class="footer-inner">
@@ -221,7 +230,7 @@ function renderFooter() {
           <span>${t("brand_name")}</span>
         </div>
         <p class="footer-tagline" data-i18n="tagline">${t("tagline")}</p>
-        <p class="footer-copy">© 2026 ${t("brand_name")} — Mock-up Demo</p>
+        <p class="footer-copy">© 2026 ${t("brand_name")} — نموذج تجريبي</p>
       </div>
     </footer>
   `;
@@ -234,13 +243,6 @@ function initPage(activePage) {
   if (headerEl) headerEl.innerHTML = renderHeader(activePage);
   if (footerEl) footerEl.innerHTML = renderFooter();
 
-  // Language toggle
-  const langBtn = document.getElementById("lang-toggle");
-  if (langBtn) {
-    langBtn.addEventListener("click", toggleLang);
-  }
-
-  // Mobile menu
   const menuBtn = document.getElementById("mobile-menu-btn");
   const nav = document.getElementById("main-nav");
   if (menuBtn && nav) {
@@ -251,7 +253,7 @@ function initPage(activePage) {
   }
 
   updateCartBadge();
-  applyLang(getLang());
+  applyLang();
 }
 
 // Export
@@ -266,6 +268,8 @@ if (typeof window !== "undefined") {
   window.getCityById = getCityById;
   window.getLocalizedField = getLocalizedField;
   window.getProductName = getProductName;
+  window.getProductSize = getProductSize;
+  window.getVisibleCatalogProducts = getVisibleCatalogProducts;
   window.getCategoryName = getCategoryName;
   window.getCityName = getCityName;
   window.getSupplierName = getSupplierName;

@@ -1,10 +1,8 @@
 /* ============================================
    Haseri (حصري) — Grocery Subscription Mock-up
    Design: Warm earth tones, Syrian-inspired
+   No external font/image requests (system fonts only)
    ============================================ */
-
-/* === Fonts === */
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
 /* === Reset & Base === */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -85,10 +83,10 @@
   --shadow-md: 0 4px 16px rgba(38, 34, 32, 0.10);
   --shadow-lg: 0 8px 32px rgba(38, 34, 32, 0.14);
 
-  /* Typography */
-  --font-body: 'Cairo', 'Inter', system-ui, sans-serif;
-  --font-display: 'Cairo', 'Inter', system-ui, sans-serif;
-  --font-mono: 'Inter', monospace;
+  /* Typography — system fonts only (no external font requests) */
+  --font-body: "Segoe UI", Tahoma, "Noto Sans Arabic", Arial, sans-serif;
+  --font-display: "Segoe UI", Tahoma, "Noto Sans Arabic", Arial, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", "Segoe UI Mono", monospace;
 
   /* Layout */
   --header-h: 64px;
@@ -108,8 +106,8 @@ body {
   flex-direction: column;
 }
 
-body.rtl { font-family: 'Cairo', sans-serif; }
-body.ltr { font-family: 'Inter', sans-serif; }
+body.rtl { font-family: var(--font-body); }
+body.ltr { font-family: var(--font-body); }
 
 /* === Typography === */
 h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); font-weight: 700; line-height: 1.2; color: var(--neutral-900); }

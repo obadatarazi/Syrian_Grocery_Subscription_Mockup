@@ -47,7 +47,7 @@ function renderAccountPage() {
     <div class="card account-card">
       <div class="info-row">
         <span class="info-label" data-i18n="account_name">${t("account_name")}</span>
-        <span class="info-value">${user.nameAr || user.nameEn}</span>
+        <span class="info-value">${user.nameAr || ""}</span>
       </div>
       <div class="info-row">
         <span class="info-label" data-i18n="account_phone">${t("account_phone")}</span>
@@ -70,16 +70,51 @@ function renderAccountPage() {
       ${cancelledMsg}
       ${cancelSection}
     </div>
+
+    <div class="card" style="max-width:480px; margin: var(--space-3) auto 0;">
+      <h3 style="margin-bottom:var(--space-2);" data-i18n="account_demo_states">${t("account_demo_states")}</h3>
+      <div style="display:flex; gap:var(--space-1); flex-wrap:wrap;">
+        <button class="btn btn-secondary btn-sm ${user.subscriptionStatus === "active" ? "" : ""}" onclick="setDemoSubscription('active')" data-i18n="account_demo_active">${t("account_demo_active")}</button>
+        <button class="btn btn-secondary btn-sm" onclick="setDemoSubscription('expired')" data-i18n="account_demo_expired">${t("account_demo_expired")}</button>
+        <button class="btn btn-secondary btn-sm" onclick="setDemoSubscription('cancelled')" data-i18n="account_demo_cancelled">${t("account_demo_cancelled")}</button>
+      </div>
+    </div>
   `;
 }
 
 function handleCancelSub() {
   if (confirm(t("account_cancel_confirm"))) {
     window.currentUser.subscriptionStatus = "cancelled";
-    window.currentUser.subscriptionEndDate = getEstimatedDeliveryDate();
+    // End of a mock current period (~end of month from today)
+    const end = new Date();
+    end.setMonth(end.getMonth() + 1);
+    end.setDate(0);
+    window.currentUser.subscriptionEndDate = end.toISOString().split("T")[0];
     showToast(t("account_cancelled_msg"), "warning");
     renderAccountPage();
-    applyLang(getLang());
+    applyLang();
+  }
+}
+
+function setDemoSubscription(status) {
+  const sample = SAMPLE_CUSTOMERS.find((c) => c.subscriptionStatus === status);
+  if (sample) {
+    window.currentUser = {
+      id: sample.id,
+      nameAr: sample.nameAr,
+      nameEn: sample.nameEn,
+      phone: sample.phone,
+      city: sample.city,
+      subscriptionStatus: sample.subscriptionStatus,
+      subscriptionEndDate: sample.subscriptionEndDate,
+    };
+  } else {
+    window.currentUser.subscriptionStatus = status;
+  }
+  renderAccountPage();
+  applyLang();
+  if (status === "expired") {
+    showToast(t("catalog_renew_prompt"), "warning");
   }
 }
 

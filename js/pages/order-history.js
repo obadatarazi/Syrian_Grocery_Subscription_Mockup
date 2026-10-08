@@ -7,13 +7,20 @@ function renderHistoryPage() {
   const container = document.getElementById("page-content");
   if (!container) return;
 
-  const userOrders = SAMPLE_ORDERS.filter((o) => o.customerId === window.currentUser.id);
-  // Sort newest first
+  const showEmpty = window.historyShowEmpty;
+  const userOrders = showEmpty
+    ? []
+    : SAMPLE_ORDERS.filter((o) => o.customerId === window.currentUser.id);
   const sorted = [...userOrders].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  const toggleLabel = showEmpty ? t("history_show_data") : t("history_show_empty");
 
   if (sorted.length === 0) {
     container.innerHTML = `
       <h1 class="page-title" data-i18n="history_title">${t("history_title")}</h1>
+      <div style="text-align:center; margin-bottom:var(--space-3);">
+        <button class="btn btn-secondary btn-sm" onclick="toggleHistoryEmpty()">${toggleLabel}</button>
+      </div>
       <div class="empty-state">
         <div class="empty-icon">📋</div>
         <h3 data-i18n="history_empty">${t("history_empty")}</h3>
@@ -46,6 +53,9 @@ function renderHistoryPage() {
 
   container.innerHTML = `
     <h1 class="page-title" data-i18n="history_title">${t("history_title")}</h1>
+    <div style="text-align:center; margin-bottom:var(--space-3);">
+      <button class="btn btn-secondary btn-sm" onclick="toggleHistoryEmpty()">${toggleLabel}</button>
+    </div>
     <div class="table-wrap">
       <table>
         <thead>
@@ -61,6 +71,12 @@ function renderHistoryPage() {
       </table>
     </div>
   `;
+}
+
+function toggleHistoryEmpty() {
+  window.historyShowEmpty = !window.historyShowEmpty;
+  renderHistoryPage();
+  applyLang();
 }
 
 document.addEventListener("DOMContentLoaded", () => {

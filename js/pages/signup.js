@@ -8,7 +8,7 @@ function renderSignUpForm() {
   if (!container) return;
 
   const cityOptions = CITIES.map(
-    (c) => `<option value="${c.id}">${getCityName(c)}${c.available ? "" : " — " + (getLang() === "ar" ? "غير متاح" : "Not available")}</option>`
+    (c) => `<option value="${c.id}">${getCityName(c)}${c.available ? "" : " — " + t("city_unavailable")}</option>`
   ).join("");
 
   container.innerHTML = `
