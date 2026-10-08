@@ -3,12 +3,13 @@ You are a senior front-end developer. Build a clickable, static mock-up website 
 Use the name "حصري" as the site brand in the header and page titles. Arabic only (no English UI).
 
 ## Tech requirements
-- Plain HTML, CSS, and JavaScript only. No server, no Node.js backend, no database, no API calls.
-- Store demo state in JavaScript variables in memory. Reloading the page resets it. Do not use localStorage unless I ask for it.
+- Primary prototypes: React + Vite + Tailwind in `website/` (storefront) and `admin/` (admin). No real server backend, database, or live API integrations — mock/in-memory services only.
+- The original plain HTML/CSS/JS mock remains in `legacy/` for reference; new work targets the React apps.
+- Store demo state in memory (React state / in-memory mocks). Reloading the page resets it. Do not use localStorage unless I ask for it.
 - Responsive, mobile-first layout.
 - Arabic (RTL) only. No English toggle or English UI text.
-- Use placeholder images or simple icons. No external image or font requests.
-- The subscription fee is 500 SYP/month, shown as a single constant at the top of the main script so it is easy to change. All prices are in SYP (ل.س), not USD.
+- Use placeholder images or simple icons where needed. Prefer bundled/local assets over remote font/image CDNs for the demo.
+- The subscription fee is 500 SYP/month, shown as a single constant (`SUBSCRIPTION_FEE`) in demo data so it is easy to change. All prices are in SYP (ل.س), not USD.
 - Payment: a Sham Cash mock screen with "Pay" and "Cancel" buttons. Pressing Pay simulates success. Pressing Cancel simulates failure. No real payment is processed.
 - Notifications: show a mock toast message in place of WhatsApp/SMS.
 
@@ -41,10 +42,10 @@ Use the name "حصري" as the site brand in the header and page titles. Arabic 
 - Sample orders: one each in confirmed, dispatched, and delivered states.
 
 ## Deliverables
-1. Folder structure with index.html, css/, js/, and assets/ folders.
-2. One HTML file per page listed above.
-3. A single data.js file with all demo data and the 500 SYP subscription constant.
-4. A README explaining how to open the mock-up (double-click index.html) and which demo toggles exist.
+1. Repo layout with `website/` (storefront), `admin/` (admin), and `legacy/` (original HTML mock).
+2. Screens covering the visitor, customer, and admin flows listed above (React apps; HTML equivalents remain under `legacy/`).
+3. Demo data including the 500 SYP subscription constant (`SUBSCRIPTION_FEE`).
+4. A root README explaining how to run `website/` and `admin/` (`npm install` && `npm run dev` in each folder) and pointing to `legacy/` for the old HTML mock.
 5. A screen list mapping each page to its user story ID (US-01 to US-14).
 
-Do not add tests, a build step, or a package.json. Keep it simple enough to open directly in a browser.
+Do not add tests or a real backend. Static mock prototypes only — Vite is used for local dev/build of the React apps, not as a production API.

@@ -1,0 +1,10 @@
+import type { Tag, TagFormData, TagListParams, TagListResult } from "@/features/tags/types/tags.types";
+
+export interface TagsService {
+  list(params?: TagListParams, signal?: AbortSignal): Promise<TagListResult>;
+  getById(id: number, signal?: AbortSignal): Promise<Tag>;
+  getBySlug(slug: string): Promise<Tag>;
+  create(data: TagFormData): Promise<Tag>;
+  update(id: number, data: Partial<TagFormData>): Promise<Tag>;
+  delete(id: number): Promise<void>;
+}

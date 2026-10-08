@@ -1,0 +1,692 @@
+{
+  "meta": {
+    "generated": "2026-06-27",
+    "shopHierarchyCount": 10,
+    "englishBrandCount": 44,
+    "arabicBrandCount": 8
+  },
+  "categorySections": [
+    {
+      "title": "Shop Mega Menu (SHOP_MEGA_MENU)",
+      "type": "trees",
+      "english": [
+        {
+          "parent": "Health & Wellness",
+          "children": [
+            "Wellness Essentials",
+            "Weight Loss Package",
+            "Routine Health Check",
+            "Healthy Heart Package",
+            "Skin & Hair",
+            "Bone & Joint",
+            "Brain & Memory",
+            "Heart Health",
+            "Multivitamins",
+            "Vitamin C",
+            "Vitamin D",
+            "Magnesium",
+            "Immunity & Wellbeing",
+            "Sleep & Stress Support",
+            "Fish Oil & Omega",
+            "Probiotics"
+          ]
+        },
+        {
+          "parent": "Nutrition Trends",
+          "children": [
+            "Collagen",
+            "Biotin",
+            "Creatine",
+            "Glutathione",
+            "Amino Acids",
+            "Plant Based Proteins",
+            "Super Greens",
+            "Gummies",
+            "Effervescent Tablets",
+            "GLP-1 Package",
+            "Hydration Boost"
+          ]
+        },
+        {
+          "parent": "Women's Health",
+          "children": [
+            "Women's Supplements",
+            "Beauty Supplements",
+            "Pregnancy & Lactation",
+            "Prenatal Support",
+            "Menopause Support",
+            "Hair Supplements",
+            "Hormone Profile",
+            "Thyroid Care"
+          ]
+        },
+        {
+          "parent": "Men's Health",
+          "children": [
+            "Men's Supplements",
+            "Prostate Care",
+            "Men's Hair Growth",
+            "Men's Sexual Health",
+            "Executive Checkup",
+            "Vitals Check Plus"
+          ]
+        },
+        {
+          "parent": "Home Health",
+          "children": [
+            "Blood Sugar Monitors",
+            "Blood Pressure Monitors",
+            "Thermometers",
+            "Pulse Oximeters",
+            "Knee Support",
+            "Wheelchairs",
+            "Nebulizers",
+            "Humidifiers"
+          ]
+        },
+        {
+          "parent": "Medical Essentials",
+          "children": [
+            "Cold & Flu",
+            "Pain Relief",
+            "First Aid",
+            "Digestive Remedies",
+            "Allergy Relief",
+            "Antacids",
+            "Masks & Gloves",
+            "Diabetic Essentials"
+          ]
+        },
+        {
+          "parent": "Beauty & Personal Care",
+          "children": [
+            "Face Wash & Cleansers",
+            "Face Serums & Oils",
+            "Sunscreen",
+            "Shampoo",
+            "Conditioners",
+            "Toothpaste",
+            "Deodorants",
+            "Body Lotions",
+            "Make Up",
+            "Perfumes"
+          ]
+        },
+        {
+          "parent": "Korean Beauty",
+          "children": [
+            "K-Serums & Oils",
+            "K-Toners & Mist",
+            "K-Facewash",
+            "K-Creams & Lotions",
+            "K-Face Masks",
+            "K-Suncare"
+          ]
+        },
+        {
+          "parent": "Beauty Trends",
+          "children": [
+            "Retinol & Retinal",
+            "Vitamin C Serums",
+            "Hyaluronic Acid",
+            "Niacinamide",
+            "Salicylic Acid",
+            "Collagen & Peptides"
+          ]
+        },
+        {
+          "parent": "Mother & Baby",
+          "children": [
+            "Baby Diapers",
+            "Baby Shampoos",
+            "Baby Milk Formula",
+            "Baby Supplements",
+            "Pre Natal Supplements",
+            "Baby Wet Wipes",
+            "Bottle Feeding",
+            "Baby Monitoring"
+          ]
+        }
+      ],
+      "arabic": [
+        {
+          "parent": "الصحة والعافية",
+          "children": [
+            "أساسيات العافية",
+            "باقة خسارة الوزن",
+            "فحص صحي دوري",
+            "باقة القلب الصحي",
+            "البشرة والشعر",
+            "العظام والمفاصل",
+            "الدماغ والذاكرة",
+            "صحة القلب",
+            "فيتامينات متعددة",
+            "فيتامين سي",
+            "فيتامين د",
+            "المغنيسيوم",
+            "المناعة والعافية",
+            "النوم والتوتر",
+            "زيت السمك وأوميغا",
+            "البروبيوتيك"
+          ]
+        },
+        {
+          "parent": "اتجاهات التغذية",
+          "children": [
+            "الكولاجين",
+            "البيوتين",
+            "الكرياتين",
+            "الغلوتاثيون",
+            "أحماض أمينية",
+            "بروتينات نباتية",
+            "المكملات الخضراء",
+            "فيتامينات على شكل حلوى",
+            "أقراص فوارة",
+            "باقة GLP-1",
+            "تعزيز الترطيب"
+          ]
+        },
+        {
+          "parent": "صحة المرأة",
+          "children": [
+            "مكملات المرأة",
+            "مكملات الجمال",
+            "الحمل والرضاعة",
+            "دعم ما قبل الولادة",
+            "دعم سن اليأس",
+            "مكملات الشعر",
+            "فحص الهرمونات",
+            "العناية بالغدة الدرقية"
+          ]
+        },
+        {
+          "parent": "صحة الرجل",
+          "children": [
+            "مكملات الرجل",
+            "العناية بالبروستاتا",
+            "نمو شعر الرجل",
+            "الصحة الجنسية للرجل",
+            "فحص تنفيذي",
+            "فحص العلامات الحيوية"
+          ]
+        },
+        {
+          "parent": "الرعاية المنزلية",
+          "children": [
+            "أجهزة قياس السكر",
+            "أجهزة ضغط الدم",
+            "موازين الحرارة",
+            "مقياس التأكسج",
+            "دعامات الركبة",
+            "كراسي متحركة",
+            "أجهزة الاستنشاق",
+            "أجهزة ترطيب الهواء"
+          ]
+        },
+        {
+          "parent": "المستلزمات الطبية",
+          "children": [
+            "الزكام والإنفلونزا",
+            "تسكين الألم",
+            "الإسعافات الأولية",
+            "علاجات الهضم",
+            "تخفيف الحساسية",
+            "مضادات الحموضة",
+            "كمامات وقفازات",
+            "مستلزمات السكري"
+          ]
+        },
+        {
+          "parent": "الجمال والعناية الشخصية",
+          "children": [
+            "غسول الوجه",
+            "سيرومات وزيوت الوجه",
+            "واقي الشمس",
+            "شامبو",
+            "بلسم الشعر",
+            "معجون الأسنان",
+            "مزيلات العرق",
+            "مرطبات الجسم",
+            "المكياج",
+            "العطور"
+          ]
+        },
+        {
+          "parent": "الجمال الكوري",
+          "children": [
+            "سيرومات كورية",
+            "تونر كوري",
+            "غسول كوري",
+            "كريمات كورية",
+            "أقنعة كورية",
+            "حماية شمس كورية"
+          ]
+        },
+        {
+          "parent": "اتجاهات الجمال",
+          "children": [
+            "الرتينول والرتينال",
+            "سيروم فيتامين سي",
+            "حمض الهيالورونيك",
+            "النياسيناميد",
+            "حمض الساليسيليك",
+            "الكولاجين والببتيدات"
+          ]
+        },
+        {
+          "parent": "الأم والطفل",
+          "children": [
+            "حفاضات الأطفال",
+            "شامبو الأطفال",
+            "حليب الأطفال",
+            "مكملات الأطفال",
+            "مكملات ما قبل الولادة",
+            "مناديل مبللة",
+            "رضاعة بالزجاجة",
+            "مراقبة الطفل"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Shop Mega Menu — Brands Entry",
+      "type": "single",
+      "english": "Brands",
+      "arabic": "العلامات التجارية"
+    },
+    {
+      "title": "Wellness Hub Navigation (WELLNESS_MEGA_SUBS)",
+      "type": "trees",
+      "english": [
+        {
+          "parent": "Wellness Hub",
+          "children": [
+            "IV Drips at Home",
+            "Health Checkups",
+            "Vaccines at Home",
+            "Physiotherapy",
+            "Weight Loss Programs",
+            "Doctor at Home",
+            "Lab Tests",
+            "Food Intolerance Test",
+            "Vitamin D Test",
+            "Cancer Screening",
+            "Flu Vaccines",
+            "Skin Glow IV"
+          ]
+        }
+      ],
+      "arabic": [
+        {
+          "parent": "مركز العافية",
+          "children": [
+            "محاليل وريدية منزلية",
+            "فحوصات صحية",
+            "لقاحات منزلية",
+            "العلاج الطبيعي",
+            "برامج خسارة الوزن",
+            "طبيب في المنزل",
+            "تحاليل مخبرية",
+            "فحص حساسية الطعام",
+            "فحص فيتامين د",
+            "فحص السرطان",
+            "لقاح الإنفلونزا",
+            "محلول نضارة البشرة"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Beauty Navigation (BEAUTY_MEGA_SUBS)",
+      "type": "trees",
+      "english": [
+        {
+          "parent": "Beauty",
+          "children": [
+            "Skincare",
+            "Sun Care",
+            "Hair Care",
+            "Make Up",
+            "Fragrance",
+            "Oral Care",
+            "Bath & Body",
+            "Men's Grooming",
+            "Korean Beauty",
+            "Anti Aging",
+            "Acne Care",
+            "Lip Care"
+          ]
+        }
+      ],
+      "arabic": [
+        {
+          "parent": "الجمال",
+          "children": [
+            "العناية بالبشرة",
+            "الحماية من الشمس",
+            "العناية بالشعر",
+            "المكياج",
+            "العطور",
+            "العناية بالفم",
+            "الاستحمام والجسم",
+            "عناية الرجل",
+            "الجمال الكوري",
+            "مكافحة الشيخوخة",
+            "العناية بالحبوب",
+            "العناية بالشفاه"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Supplements Navigation (SUPPLEMENTS_MEGA_SUBS)",
+      "type": "trees",
+      "english": [
+        {
+          "parent": "Supplements",
+          "children": [
+            "Multivitamins",
+            "Vitamin C",
+            "Vitamin D",
+            "Omega-3 & Fish Oil",
+            "Protein Powders",
+            "Probiotics",
+            "Collagen",
+            "Biotin",
+            "Sports Nutrition",
+            "Herbal & Ayurvedic",
+            "Weight Management",
+            "Immunity Boosters"
+          ]
+        }
+      ],
+      "arabic": [
+        {
+          "parent": "المكملات",
+          "children": [
+            "فيتامينات متعددة",
+            "فيتامين سي",
+            "فيتامين د",
+            "أوميغا ٣",
+            "مساحيق البروتين",
+            "البروبيوتيك",
+            "الكولاجين",
+            "البيوتين",
+            "تغذية رياضية",
+            "أعشاب وأيورفيدا",
+            "إدارة الوزن",
+            "تعزيز المناعة"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Top Categories — Homepage (TOP_CATEGORIES)",
+      "type": "flat",
+      "english": [
+        "Prime Picks",
+        "Beauty",
+        "Hair Care",
+        "New Arrival",
+        "Health & Wellness",
+        "Mother & Baby",
+        "K-Beauty",
+        "Personal Care",
+        "Top Deals",
+        "Sunscreen Store",
+        "Home Health",
+        "Medical Essentials"
+      ],
+      "arabic": [
+        "اختيارات مميزة",
+        "الجمال",
+        "العناية بالشعر",
+        "وصل حديثًا",
+        "الصحة والعافية",
+        "الأم والطفل",
+        "الجمال الكوري",
+        "العناية الشخصية",
+        "أفضل العروض",
+        "متجر واقي الشمس",
+        "الصحة المنزلية",
+        "المستلزمات الطبية"
+      ]
+    },
+    {
+      "title": "Explore Beauty Categories (EXPLORE_BEAUTY_CATEGORIES)",
+      "type": "trees",
+      "english": [
+        {
+          "parent": "Explore Beauty Categories",
+          "children": [
+            "Skin Care",
+            "Make Up",
+            "Hair Care",
+            "Fragrances",
+            "Sun Protection",
+            "Bath & Body Care",
+            "Hand & Foot Care",
+            "Beauty Trends"
+          ]
+        }
+      ],
+      "arabic": [
+        {
+          "parent": "استكشف فئات الجمال",
+          "children": [
+            "العناية بالبشرة",
+            "المكياج",
+            "العناية بالشعر",
+            "العطور",
+            "الحماية من الشمس",
+            "الاستحمام والجسم",
+            "العناية باليدين والقدمين",
+            "اتجاهات الجمال"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Nutrition Guide Categories (NUTRITION_GUIDE_CATEGORIES)",
+      "type": "trees",
+      "english": [
+        {
+          "parent": "Your Nutrition Guide",
+          "children": [
+            "Vitamins",
+            "Fish Oils & Omega",
+            "Sports Nutrition",
+            "Health Support",
+            "Specialty Supplements",
+            "Herbal & Ayurvedic",
+            "Weight Management",
+            "Probiotics & Gut Health"
+          ]
+        }
+      ],
+      "arabic": [
+        {
+          "parent": "دليلك الغذائي",
+          "children": [
+            "الفيتامينات",
+            "زيت السمك وأوميغا",
+            "التغذية الرياضية",
+            "دعم الصحة",
+            "مكملات متخصصة",
+            "أعشاب وأيورفيدا",
+            "إدارة الوزن",
+            "البروبيوتيك وصحة الأمعاء"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Mom & Baby Categories (MOM_BABY_CATEGORIES)",
+      "type": "trees",
+      "english": [
+        {
+          "parent": "Mom & Baby",
+          "children": [
+            "Baby Diapers",
+            "Baby Shampoos",
+            "Baby Milk Formula",
+            "Baby Supplements",
+            "Pre Natal Supplements",
+            "Baby Wet Wipes",
+            "Bottle Feeding",
+            "Baby Monitoring"
+          ]
+        }
+      ],
+      "arabic": [
+        {
+          "parent": "الأم والطفل",
+          "children": [
+            "حفاضات الأطفال",
+            "شامبو الأطفال",
+            "حليب الأطفال",
+            "مكملات الأطفال",
+            "مكملات ما قبل الولادة",
+            "مناديل مبللة",
+            "رضاعة بالزجاجة",
+            "مراقبة الطفل"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Footer Categories",
+      "type": "flat",
+      "english": [
+        "Health & Beauty",
+        "Beauty Supplies",
+        "Body Care",
+        "Face Care",
+        "Hair Care"
+      ],
+      "arabic": [
+        "الصحة والجمال",
+        "مستلزمات الجمال",
+        "العناية بالجسم",
+        "العناية بالوجه",
+        "العناية بالشعر"
+      ]
+    },
+    {
+      "title": "Main Navigation Category Labels",
+      "type": "flat",
+      "english": [
+        "Wellness",
+        "Beauty",
+        "Supplements",
+        "Personal Care",
+        "Mother & Baby",
+        "Medical Devices"
+      ],
+      "arabic": [
+        "العافية",
+        "الجمال",
+        "المكملات",
+        "العناية الشخصية",
+        "الأم والطفل",
+        "الأجهزة الطبية"
+      ]
+    },
+    {
+      "title": "Product Filter Categories (from product data)",
+      "type": "flat",
+      "english": [
+        "Beauty (key: beauty)",
+        "Supplements (key: supplements)"
+      ],
+      "arabic": [
+        "الجمال (key: beauty)",
+        "المكملات (key: supplements)"
+      ]
+    },
+    {
+      "title": "Promotional / Deal Categories",
+      "type": "flat",
+      "english": [
+        "Skincare & Beauty (key: catSkincareBeauty)",
+        "Vitamins & Supplements (key: catVitaminsSupps)",
+        "Personal Care (key: catPersonalCare)",
+        "Wellness Bundles (key: catWellnessBundle)",
+        "Energy Boost (key: catEnergyBoost)"
+      ],
+      "arabic": [
+        "العناية بالبشرة والجمال (key: catSkincareBeauty)",
+        "الفيتامينات والمكملات (key: catVitaminsSupps)",
+        "العناية الشخصية (key: catPersonalCare)",
+        "باقات العافية (key: catWellnessBundle)",
+        "تعزيز الطاقة (key: catEnergyBoost)"
+      ]
+    }
+  ],
+  "englishBrands": [
+    "Accu-Chek",
+    "ACM",
+    "Acuvue",
+    "Anua",
+    "Aveeno",
+    "Avène",
+    "Bepanthen",
+    "BETADINE",
+    "Bioderma",
+    "Canesten",
+    "CeraVe",
+    "Cetaphil",
+    "CH-Alpha",
+    "COSRX",
+    "Dymatize",
+    "Eucerin",
+    "Evapharma",
+    "Galderma",
+    "Generic",
+    "ISDIN",
+    "La Roche-Posay",
+    "Maybelline",
+    "Medicube",
+    "Mustela",
+    "Nature's Bounty",
+    "NeoCell",
+    "Neutrogena",
+    "NOW",
+    "Now Foods",
+    "Olaplex",
+    "Omron",
+    "Optibac",
+    "Optimum Nutrition",
+    "PharmaCare",
+    "Priorin",
+    "Redoxon",
+    "Skin1004",
+    "Solgar",
+    "SVR",
+    "The Ordinary",
+    "Uriage",
+    "Vichy",
+    "VICHY",
+    "Vitabiotics"
+  ],
+  "arabicBrands": [
+    "بيوديرما",
+    "سولجار",
+    "سيتافيل",
+    "كوسركس",
+    "لاروش بوزيه",
+    "ميبيلين",
+    "نيوتروجينا",
+    "يوسرين"
+  ],
+  "sources": [
+    "SHOP_MEGA_MENU — primary shop navigation category hierarchy",
+    "WELLNESS_MEGA_SUBS, BEAUTY_MEGA_SUBS, SUPPLEMENTS_MEGA_SUBS — header nav mega menus",
+    "TOP_CATEGORIES — homepage top category tiles",
+    "EXPLORE_BEAUTY_CATEGORIES, NUTRITION_GUIDE_CATEGORIES, MOM_BABY_CATEGORIES — homepage section tiles",
+    "MEGA_BRANDS, TOP_BRANDS — brand listings",
+    "PRODUCTS, CREAM_RX_PRODUCTS — product category and brand fields",
+    "T — localization strings for category labels",
+    "Footer inline categories array"
+  ]
+}

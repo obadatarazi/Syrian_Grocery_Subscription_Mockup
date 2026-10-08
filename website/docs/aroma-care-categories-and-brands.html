@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Aroma Care — Categories &amp; Brands Reference</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    @page { margin: 18mm 15mm; size: A4; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: Inter, system-ui, sans-serif;
+      font-size: 10.5pt;
+      line-height: 1.45;
+      color: #1a1a1a;
+      max-width: 100%;
+      margin: 0;
+      padding: 24px 32px;
+    }
+    h1 { font-size: 20pt; color: #063e38; margin: 0 0 6px; border-bottom: 3px solid #0b7a6e; padding-bottom: 8px; }
+    .subtitle { color: #555; margin-bottom: 24px; font-size: 10pt; }
+    h2 { font-size: 15pt; color: #0b7a6e; margin: 28px 0 12px; page-break-after: avoid; }
+    h3 { font-size: 12pt; color: #063e38; margin: 20px 0 8px; page-break-after: avoid; }
+    h4 { font-size: 10.5pt; color: #333; margin: 14px 0 6px; text-transform: uppercase; page-break-after: avoid; }
+    .section { margin-bottom: 20px; page-break-inside: avoid; }
+    pre.tree {
+      font-family: "Courier New", Consolas, monospace;
+      font-size: 9.5pt;
+      background: #f7faf9;
+      border: 1px solid #d8ebe8;
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin: 0 0 12px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+    pre.tree.ar { font-family: Cairo, "Arial Unicode MS", sans-serif; text-align: right; }
+    ul.flat { margin: 0 0 14px; padding-left: 22px; }
+    ul.flat.ar { font-family: Cairo, sans-serif; padding-right: 22px; padding-left: 0; list-style-position: inside; }
+    ul.brands { columns: 2; column-gap: 24px; margin: 0 0 16px; padding-left: 22px; }
+    ul.brands.ar { font-family: Cairo, sans-serif; direction: rtl; padding-right: 22px; padding-left: 0; }
+    li { margin: 3px 0; break-inside: avoid; }
+    .meta { color: #888; font-size: 9pt; }
+    .note { background: #fff8e8; border-left: 4px solid #c9a85c; padding: 10px 14px; margin: 16px 0; font-size: 9.5pt; }
+    .stats { display: flex; gap: 20px; flex-wrap: wrap; margin: 16px 0 24px; }
+    .stat { background: #e8f5f3; padding: 10px 16px; border-radius: 8px; }
+    .stat strong { display: block; font-size: 16pt; color: #0b7a6e; }
+    footer { margin-top: 32px; padding-top: 12px; border-top: 1px solid #ddd; font-size: 9pt; color: #777; }
+  </style>
+</head>
+<body>
+  <h1>Aroma Care Website Prototype</h1>
+  <p class="subtitle">Categories &amp; Brands Reference — extracted from <code>Website-prototype/src/App.tsx</code><br/>
+  Generated: 2026-06-27 · Purpose: backend database seeding</p>
+
+  <div class="stats">
+    <div class="stat"><strong>10</strong>Shop mega-menu hierarchies</div>
+    <div class="stat"><strong>44</strong>Unique English brands</div>
+    <div class="stat"><strong>8</strong>Arabic brand names in source</div>
+  </div>
+
+  <h2>Categories</h2>
+  
+    <div class="section">
+      <h3>Shop Mega Menu (SHOP_MEGA_MENU)</h3>
+      <h4>English</h4>
+      <pre class="tree en">Health &amp; Wellness
+    ├── Wellness Essentials
+    ├── Weight Loss Package
+    ├── Routine Health Check
+    ├── Healthy Heart Package
+    ├── Skin &amp; Hair
+    ├── Bone &amp; Joint
+    ├── Brain &amp; Memory
+    ├── Heart Health
+    ├── Multivitamins
+    ├── Vitamin C
+    ├── Vitamin D
+    ├── Magnesium
+    ├── Immunity &amp; Wellbeing
+    ├── Sleep &amp; Stress Support
+    ├── Fish Oil &amp; Omega
+    └── Probiotics
+
+Nutrition Trends
+    ├── Collagen
+    ├── Biotin
+    ├── Creatine
+    ├── Glutathione
+    ├── Amino Acids
+    ├── Plant Based Proteins
+    ├── Super Greens
+    ├── Gummies
+    ├── Effervescent Tablets
+    ├── GLP-1 Package
+    └── Hydration Boost
+
+Women's Health
+    ├── Women's Supplements
+    ├── Beauty Supplements
+    ├── Pregnancy &amp; Lactation
+    ├── Prenatal Support
+    ├── Menopause Support
+    ├── Hair Supplements
+    ├── Hormone Profile
+    └── Thyroid Care
+
+Men's Health
+    ├── Men's Supplements
+    ├── Prostate Care
+    ├── Men's Hair Growth
+    ├── Men's Sexual Health
+    ├── Executive Checkup
+    └── Vitals Check Plus
+
+Home Health
+    ├── Blood Sugar Monitors
+    ├── Blood Pressure Monitors
+    ├── Thermometers
+    ├── Pulse Oximeters
+    ├── Knee Support
+    ├── Wheelchairs
+    ├── Nebulizers
+    └── Humidifiers
+
+Medical Essentials
+    ├── Cold &amp; Flu
+    ├── Pain Relief
+    ├── First Aid
+    ├── Digestive Remedies
+    ├── Allergy Relief
+    ├── Antacids
+    ├── Masks &amp; Gloves
+    └── Diabetic Essentials
+
+Beauty &amp; Personal Care
+    ├── Face Wash &amp; Cleansers
+    ├── Face Serums &amp; Oils
+    ├── Sunscreen
+    ├── Shampoo
+    ├── Conditioners
+    ├── Toothpaste
+    ├── Deodorants
+    ├── Body Lotions
+    ├── Make Up
+    └── Perfumes
+
+Korean Beauty
+    ├── K-Serums &amp; Oils
+    ├── K-Toners &amp; Mist
+    ├── K-Facewash
+    ├── K-Creams &amp; Lotions
+    ├── K-Face Masks
+    └── K-Suncare
+
+Beauty Trends
+    ├── Retinol &amp; Retinal
+    ├── Vitamin C Serums
+    ├── Hyaluronic Acid
+    ├── Niacinamide
+    ├── Salicylic Acid
+    └── Collagen &amp; Peptides
+
+Mother &amp; Baby
+    ├── Baby Diapers
+    ├── Baby Shampoos
+    ├── Baby Milk Formula
+    ├── Baby Supplements
+    ├── Pre Natal Supplements
+    ├── Baby Wet Wipes
+    ├── Bottle Feeding
+    └── Baby Monitoring</pre>
+      <h4>Arabic</h4>
+      <pre class="tree ar" dir="rtl">الصحة والعافية
+    ├── أساسيات العافية
+    ├── باقة خسارة الوزن
+    ├── فحص صحي دوري
+    ├── باقة القلب الصحي
+    ├── البشرة والشعر
+    ├── العظام والمفاصل
+    ├── الدماغ والذاكرة
+    ├── صحة القلب
+    ├── فيتامينات متعددة
+    ├── فيتامين سي
+    ├── فيتامين د
+    ├── المغنيسيوم
+    ├── المناعة والعافية
+    ├── النوم والتوتر
+    ├── زيت السمك وأوميغا
+    └── البروبيوتيك
+
+اتجاهات التغذية
+    ├── الكولاجين
+    ├── البيوتين
+    ├── الكرياتين
+    ├── الغلوتاثيون
+    ├── أحماض أمينية
+    ├── بروتينات نباتية
+    ├── المكملات الخضراء
+    ├── فيتامينات على شكل حلوى
+    ├── أقراص فوارة
+    ├── باقة GLP-1
+    └── تعزيز الترطيب
+
+صحة المرأة
+    ├── مكملات المرأة
+    ├── مكملات الجمال
+    ├── الحمل والرضاعة
+    ├── دعم ما قبل الولادة
+    ├── دعم سن اليأس
+    ├── مكملات الشعر
+    ├── فحص الهرمونات
+    └── العناية بالغدة الدرقية
+
+صحة الرجل
+    ├── مكملات الرجل
+    ├── العناية بالبروستاتا
+    ├── نمو شعر الرجل
+    ├── الصحة الجنسية للرجل
+    ├── فحص تنفيذي
+    └── فحص العلامات الحيوية
+
+الرعاية المنزلية
+    ├── أجهزة قياس السكر
+    ├── أجهزة ضغط الدم
+    ├── موازين الحرارة
+    ├── مقياس التأكسج
+    ├── دعامات الركبة
+    ├── كراسي متحركة
+    ├── أجهزة الاستنشاق
+    └── أجهزة ترطيب الهواء
+
+المستلزمات الطبية
+    ├── الزكام والإنفلونزا
+    ├── تسكين الألم
+    ├── الإسعافات الأولية
+    ├── علاجات الهضم
+    ├── تخفيف الحساسية
+    ├── مضادات الحموضة
+    ├── كمامات وقفازات
+    └── مستلزمات السكري
+
+الجمال والعناية الشخصية
+    ├── غسول الوجه
+    ├── سيرومات وزيوت الوجه
+    ├── واقي الشمس
+    ├── شامبو
+    ├── بلسم الشعر
+    ├── معجون الأسنان
+    ├── مزيلات العرق
+    ├── مرطبات الجسم
+    ├── المكياج
+    └── العطور
+
+الجمال الكوري
+    ├── سيرومات كورية
+    ├── تونر كوري
+    ├── غسول كوري
+    ├── كريمات كورية
+    ├── أقنعة كورية
+    └── حماية شمس كورية
+
+اتجاهات الجمال
+    ├── الرتينول والرتينال
+    ├── سيروم فيتامين سي
+    ├── حمض الهيالورونيك
+    ├── النياسيناميد
+    ├── حمض الساليسيليك
+    └── الكولاجين والببتيدات
+
+الأم والطفل
+    ├── حفاضات الأطفال
+    ├── شامبو الأطفال
+    ├── حليب الأطفال
+    ├── مكملات الأطفال
+    ├── مكملات ما قبل الولادة
+    ├── مناديل مبللة
+    ├── رضاعة بالزجاجة
+    └── مراقبة الطفل</pre>
+    </div>
+
+  <div class="section">
+    <h3>Shop Mega Menu — Brands Entry</h3>
+    <h4>English</h4>
+    <pre class="tree en">Brands</pre>
+    <h4>Arabic</h4>
+    <pre class="tree ar" dir="rtl">العلامات التجارية</pre>
+  </div>
+
+    <div class="section">
+      <h3>Wellness Hub Navigation (WELLNESS_MEGA_SUBS)</h3>
+      <h4>English</h4>
+      <pre class="tree en">Wellness Hub
+    ├── IV Drips at Home
+    ├── Health Checkups
+    ├── Vaccines at Home
+    ├── Physiotherapy
+    ├── Weight Loss Programs
+    ├── Doctor at Home
+    ├── Lab Tests
+    ├── Food Intolerance Test
+    ├── Vitamin D Test
+    ├── Cancer Screening
+    ├── Flu Vaccines
+    └── Skin Glow IV</pre>
+      <h4>Arabic</h4>
+      <pre class="tree ar" dir="rtl">مركز العافية
+    ├── محاليل وريدية منزلية
+    ├── فحوصات صحية
+    ├── لقاحات منزلية
+    ├── العلاج الطبيعي
+    ├── برامج خسارة الوزن
+    ├── طبيب في المنزل
+    ├── تحاليل مخبرية
+    ├── فحص حساسية الطعام
+    ├── فحص فيتامين د
+    ├── فحص السرطان
+    ├── لقاح الإنفلونزا
+    └── محلول نضارة البشرة</pre>
+    </div>
+
+    <div class="section">
+      <h3>Beauty Navigation (BEAUTY_MEGA_SUBS)</h3>
+      <h4>English</h4>
+      <pre class="tree en">Beauty
+    ├── Skincare
+    ├── Sun Care
+    ├── Hair Care
+    ├── Make Up
+    ├── Fragrance
+    ├── Oral Care
+    ├── Bath &amp; Body
+    ├── Men's Grooming
+    ├── Korean Beauty
+    ├── Anti Aging
+    ├── Acne Care
+    └── Lip Care</pre>
+      <h4>Arabic</h4>
+      <pre class="tree ar" dir="rtl">الجمال
+    ├── العناية بالبشرة
+    ├── الحماية من الشمس
+    ├── العناية بالشعر
+    ├── المكياج
+    ├── العطور
+    ├── العناية بالفم
+    ├── الاستحمام والجسم
+    ├── عناية الرجل
+    ├── الجمال الكوري
+    ├── مكافحة الشيخوخة
+    ├── العناية بالحبوب
+    └── العناية بالشفاه</pre>
+    </div>
+
+    <div class="section">
+      <h3>Supplements Navigation (SUPPLEMENTS_MEGA_SUBS)</h3>
+      <h4>English</h4>
+      <pre class="tree en">Supplements
+    ├── Multivitamins
+    ├── Vitamin C
+    ├── Vitamin D
+    ├── Omega-3 &amp; Fish Oil
+    ├── Protein Powders
+    ├── Probiotics
+    ├── Collagen
+    ├── Biotin
+    ├── Sports Nutrition
+    ├── Herbal &amp; Ayurvedic
+    ├── Weight Management
+    └── Immunity Boosters</pre>
+      <h4>Arabic</h4>
+      <pre class="tree ar" dir="rtl">المكملات
+    ├── فيتامينات متعددة
+    ├── فيتامين سي
+    ├── فيتامين د
+    ├── أوميغا ٣
+    ├── مساحيق البروتين
+    ├── البروبيوتيك
+    ├── الكولاجين
+    ├── البيوتين
+    ├── تغذية رياضية
+    ├── أعشاب وأيورفيدا
+    ├── إدارة الوزن
+    └── تعزيز المناعة</pre>
+    </div>
+
+  <div class="section">
+    <h3>Top Categories — Homepage (TOP_CATEGORIES)</h3>
+    <h4>English</h4>
+    <ul class="flat"><li>Prime Picks</li><li>Beauty</li><li>Hair Care</li><li>New Arrival</li><li>Health &amp; Wellness</li><li>Mother &amp; Baby</li><li>K-Beauty</li><li>Personal Care</li><li>Top Deals</li><li>Sunscreen Store</li><li>Home Health</li><li>Medical Essentials</li></ul>
+    <h4>Arabic</h4>
+    <ul class="flat ar" dir="rtl"><li>اختيارات مميزة</li><li>الجمال</li><li>العناية بالشعر</li><li>وصل حديثًا</li><li>الصحة والعافية</li><li>الأم والطفل</li><li>الجمال الكوري</li><li>العناية الشخصية</li><li>أفضل العروض</li><li>متجر واقي الشمس</li><li>الصحة المنزلية</li><li>المستلزمات الطبية</li></ul>
+  </div>
+
+    <div class="section">
+      <h3>Explore Beauty Categories (EXPLORE_BEAUTY_CATEGORIES)</h3>
+      <h4>English</h4>
+      <pre class="tree en">Explore Beauty Categories
+    ├── Skin Care
+    ├── Make Up
+    ├── Hair Care
+    ├── Fragrances
+    ├── Sun Protection
+    ├── Bath &amp; Body Care
+    ├── Hand &amp; Foot Care
+    └── Beauty Trends</pre>
+      <h4>Arabic</h4>
+      <pre class="tree ar" dir="rtl">استكشف فئات الجمال
+    ├── العناية بالبشرة
+    ├── المكياج
+    ├── العناية بالشعر
+    ├── العطور
+    ├── الحماية من الشمس
+    ├── الاستحمام والجسم
+    ├── العناية باليدين والقدمين
+    └── اتجاهات الجمال</pre>
+    </div>
+
+    <div class="section">
+      <h3>Nutrition Guide Categories (NUTRITION_GUIDE_CATEGORIES)</h3>
+      <h4>English</h4>
+      <pre class="tree en">Your Nutrition Guide
+    ├── Vitamins
+    ├── Fish Oils &amp; Omega
+    ├── Sports Nutrition
+    ├── Health Support
+    ├── Specialty Supplements
+    ├── Herbal &amp; Ayurvedic
+    ├── Weight Management
+    └── Probiotics &amp; Gut Health</pre>
+      <h4>Arabic</h4>
+      <pre class="tree ar" dir="rtl">دليلك الغذائي
+    ├── الفيتامينات
+    ├── زيت السمك وأوميغا
+    ├── التغذية الرياضية
+    ├── دعم الصحة
+    ├── مكملات متخصصة
+    ├── أعشاب وأيورفيدا
+    ├── إدارة الوزن
+    └── البروبيوتيك وصحة الأمعاء</pre>
+    </div>
+
+    <div class="section">
+      <h3>Mom &amp; Baby Categories (MOM_BABY_CATEGORIES)</h3>
+      <h4>English</h4>
+      <pre class="tree en">Mom &amp; Baby
+    ├── Baby Diapers
+    ├── Baby Shampoos
+    ├── Baby Milk Formula
+    ├── Baby Supplements
+    ├── Pre Natal Supplements
+    ├── Baby Wet Wipes
+    ├── Bottle Feeding
+    └── Baby Monitoring</pre>
+      <h4>Arabic</h4>
+      <pre class="tree ar" dir="rtl">الأم والطفل
+    ├── حفاضات الأطفال
+    ├── شامبو الأطفال
+    ├── حليب الأطفال
+    ├── مكملات الأطفال
+    ├── مكملات ما قبل الولادة
+    ├── مناديل مبللة
+    ├── رضاعة بالزجاجة
+    └── مراقبة الطفل</pre>
+    </div>
+
+  <div class="section">
+    <h3>Footer Categories</h3>
+    <h4>English</h4>
+    <ul class="flat"><li>Health &amp; Beauty</li><li>Beauty Supplies</li><li>Body Care</li><li>Face Care</li><li>Hair Care</li></ul>
+    <h4>Arabic</h4>
+    <ul class="flat ar" dir="rtl"><li>الصحة والجمال</li><li>مستلزمات الجمال</li><li>العناية بالجسم</li><li>العناية بالوجه</li><li>العناية بالشعر</li></ul>
+  </div>
+
+  <div class="section">
+    <h3>Main Navigation Category Labels</h3>
+    <h4>English</h4>
+    <ul class="flat"><li>Wellness</li><li>Beauty</li><li>Supplements</li><li>Personal Care</li><li>Mother &amp; Baby</li><li>Medical Devices</li></ul>
+    <h4>Arabic</h4>
+    <ul class="flat ar" dir="rtl"><li>العافية</li><li>الجمال</li><li>المكملات</li><li>العناية الشخصية</li><li>الأم والطفل</li><li>الأجهزة الطبية</li></ul>
+  </div>
+
+  <div class="section">
+    <h3>Product Filter Categories (from product data)</h3>
+    <h4>English</h4>
+    <ul class="flat"><li>Beauty <span class="meta">(key: beauty)</span></li><li>Supplements <span class="meta">(key: supplements)</span></li></ul>
+    <h4>Arabic</h4>
+    <ul class="flat ar" dir="rtl"><li>الجمال <span class="meta">(key: beauty)</span></li><li>المكملات <span class="meta">(key: supplements)</span></li></ul>
+  </div>
+
+  <div class="section">
+    <h3>Promotional / Deal Categories</h3>
+    <h4>English</h4>
+    <ul class="flat"><li>Skincare &amp; Beauty <span class="meta">(key: catSkincareBeauty)</span></li><li>Vitamins &amp; Supplements <span class="meta">(key: catVitaminsSupps)</span></li><li>Personal Care <span class="meta">(key: catPersonalCare)</span></li><li>Wellness Bundles <span class="meta">(key: catWellnessBundle)</span></li><li>Energy Boost <span class="meta">(key: catEnergyBoost)</span></li></ul>
+    <h4>Arabic</h4>
+    <ul class="flat ar" dir="rtl"><li>العناية بالبشرة والجمال <span class="meta">(key: catSkincareBeauty)</span></li><li>الفيتامينات والمكملات <span class="meta">(key: catVitaminsSupps)</span></li><li>العناية الشخصية <span class="meta">(key: catPersonalCare)</span></li><li>باقات العافية <span class="meta">(key: catWellnessBundle)</span></li><li>تعزيز الطاقة <span class="meta">(key: catEnergyBoost)</span></li></ul>
+  </div>
+
+  <h2>Brands</h2>
+
+  <div class="section">
+    <h3>English Brands</h3>
+    <p>Sources: <code>MEGA_BRANDS</code>, <code>TOP_BRANDS</code>, product <code>brand</code> fields (<code>PRODUCTS</code>, <code>CREAM_RX_PRODUCTS</code>). Duplicates removed; names preserved exactly as in source.</p>
+    <ul class="brands">
+      <li>Accu-Chek</li>
+      <li>ACM</li>
+      <li>Acuvue</li>
+      <li>Anua</li>
+      <li>Aveeno</li>
+      <li>Avène</li>
+      <li>Bepanthen</li>
+      <li>BETADINE</li>
+      <li>Bioderma</li>
+      <li>Canesten</li>
+      <li>CeraVe</li>
+      <li>Cetaphil</li>
+      <li>CH-Alpha</li>
+      <li>COSRX</li>
+      <li>Dymatize</li>
+      <li>Eucerin</li>
+      <li>Evapharma</li>
+      <li>Galderma</li>
+      <li>Generic</li>
+      <li>ISDIN</li>
+      <li>La Roche-Posay</li>
+      <li>Maybelline</li>
+      <li>Medicube</li>
+      <li>Mustela</li>
+      <li>Nature's Bounty</li>
+      <li>NeoCell</li>
+      <li>Neutrogena</li>
+      <li>NOW</li>
+      <li>Now Foods</li>
+      <li>Olaplex</li>
+      <li>Omron</li>
+      <li>Optibac</li>
+      <li>Optimum Nutrition</li>
+      <li>PharmaCare</li>
+      <li>Priorin</li>
+      <li>Redoxon</li>
+      <li>Skin1004</li>
+      <li>Solgar</li>
+      <li>SVR</li>
+      <li>The Ordinary</li>
+      <li>Uriage</li>
+      <li>Vichy</li>
+      <li>VICHY</li>
+      <li>Vitabiotics</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h3>Arabic Brands</h3>
+    <div class="note">Arabic brand names appear only where explicitly present in the project source (banner subtitles and Arabic product name transliterations). Brands without Arabic representations in the prototype are listed only in the English section above.</div>
+    <ul class="brands ar" dir="rtl">
+      <li>بيوديرما</li>
+      <li>سولجار</li>
+      <li>سيتافيل</li>
+      <li>كوسركس</li>
+      <li>لاروش بوزيه</li>
+      <li>ميبيلين</li>
+      <li>نيوتروجينا</li>
+      <li>يوسرين</li>
+    </ul>
+  </div>
+
+  <h2>Source Constants Reference</h2>
+  <ul class="flat">
+    <li><code>SHOP_MEGA_MENU</code> — primary shop navigation category hierarchy</li>
+    <li><code>WELLNESS_MEGA_SUBS</code>, <code>BEAUTY_MEGA_SUBS</code>, <code>SUPPLEMENTS_MEGA_SUBS</code> — header nav mega menus</li>
+    <li><code>TOP_CATEGORIES</code> — homepage top category tiles</li>
+    <li><code>EXPLORE_BEAUTY_CATEGORIES</code>, <code>NUTRITION_GUIDE_CATEGORIES</code>, <code>MOM_BABY_CATEGORIES</code> — homepage section tiles</li>
+    <li><code>MEGA_BRANDS</code>, <code>TOP_BRANDS</code> — brand listings</li>
+    <li><code>PRODUCTS</code>, <code>CREAM_RX_PRODUCTS</code> — product <code>category</code> and <code>brand</code> fields</li>
+    <li><code>T</code> — localization strings for category labels</li>
+    <li>Footer inline <code>categories</code> array</li>
+  </ul>
+
+  <footer>
+    Aroma Care KW · Website Prototype Data Export · All category and brand names preserved verbatim from source files.
+  </footer>
+</body>
+</html>

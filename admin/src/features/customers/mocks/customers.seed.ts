@@ -1,0 +1,822 @@
+import type {
+  CrmCustomer,
+  CrmNote,
+  CrmOrder,
+  CrmPayment,
+  CrmPaymentStatus,
+  CrmTimelineEvent,
+} from "@/features/customers/types/customers.types";
+
+type CrmCustomerSeed = Omit<CrmCustomer, "payments" | "reviews" | "coupons">;
+
+function note(id: number, body: string, author: string, type: CrmNote["type"], createdAt: string): CrmNote {
+  return { id, body, author, type, createdAt };
+}
+
+function event(
+  id: number,
+  type: CrmTimelineEvent["type"],
+  titleEn: string,
+  titleAr: string,
+  at: string,
+): CrmTimelineEvent {
+  return { id, type, titleEn, titleAr, at };
+}
+
+function paymentStatusFromOrder(order: CrmOrder): CrmPaymentStatus {
+  if (order.status === "cancelled") return "failed";
+  if (order.status === "processing" || order.status === "pending") return "pending";
+  return "success";
+}
+
+function paymentsForCustomer(customer: CrmCustomerSeed): CrmPayment[] {
+  const fromOrders: CrmPayment[] = customer.orders.map((order) => ({
+    id: `PAY-${order.id}`,
+    orderId: order.id,
+    amount: order.total,
+    methodEn: order.paymentEn,
+    methodAr: order.paymentAr,
+    status: paymentStatusFromOrder(order),
+    paidAt: order.placedAt,
+  }));
+
+  const extras: Record<number, CrmPayment[]> = {
+    1: [
+      {
+        id: "PAY-REF-4872",
+        orderId: "ARC-4872",
+        amount: 4.5,
+        methodEn: "KNET",
+        methodAr: "كي نت",
+        status: "refunded",
+        paidAt: "2026-08-16T09:00:00",
+      },
+    ],
+    3: [
+      {
+        id: "PAY-FAIL-4199",
+        orderId: "ARC-4199",
+        amount: 19.8,
+        methodEn: "KNET",
+        methodAr: "كي نت",
+        status: "failed",
+        paidAt: "2026-08-09T20:12:00",
+      },
+    ],
+  };
+
+  return [...fromOrders, ...(extras[customer.id] ?? [])];
+}
+
+function reviewsForCustomer(customer: CrmCustomerSeed): CrmCustomer["reviews"] {
+  const byId: Record<number, CrmCustomer["reviews"]> = {
+    1: [
+      {
+        id: "REV-1041",
+        productEn: "Cetaphil Cream 250g",
+        productAr: "كريم سيتافيل ٢٥٠جم",
+        rating: 5,
+        bodyEn: "Gentle and lasts all day. Using it with my Care Plan box.",
+        bodyAr: "لطيف ويدوم طوال اليوم. أستخدمه مع صندوق خطة العناية.",
+        status: "approved",
+        createdAt: "2026-08-16T10:00:00",
+      },
+    ],
+    3: [
+      {
+        id: "REV-0910",
+        productEn: "La Roche-Posay SPF50+",
+        productAr: "لاروش بوزيه SPF50+",
+        rating: 4,
+        bodyEn: "Good coverage, a bit heavy for summer.",
+        bodyAr: "تغطية جيدة، لكنه ثقيل قليلاً للصيف.",
+        status: "approved",
+        createdAt: "2026-08-10T12:20:00",
+      },
+    ],
+    7: [
+      {
+        id: "REV-0550",
+        productEn: "Panadol Extra 500mg",
+        productAr: "بنادول إكسترا ٥٠٠ملغ",
+        rating: 5,
+        bodyEn: "Always in my weekly box. Works fast.",
+        bodyAr: "دائماً في صندوقي الأسبوعي. مفعوله سريع.",
+        status: "approved",
+        createdAt: "2026-08-10T13:00:00",
+      },
+    ],
+    4: [
+      {
+        id: "REV-4288",
+        productEn: "Vitamin C 1000mg (20)",
+        productAr: "فيتامين سي ١٠٠٠ملغ",
+        rating: 3,
+        bodyEn: "Okay taste, waiting for pharmacist to confirm my other item.",
+        bodyAr: "الطعم مقبول، أنتظر تأكيد الصيدلاني للمنتج الآخر.",
+        status: "pending",
+        createdAt: "2026-08-13T18:00:00",
+      },
+    ],
+  };
+
+  return byId[customer.id] ?? [];
+}
+
+function couponsForCustomer(customer: CrmCustomerSeed): CrmCustomer["coupons"] {
+  const byId: Record<number, CrmCustomer["coupons"]> = {
+    1: [
+      {
+        code: "SUMMER20",
+        titleEn: "Summer skincare 20%",
+        titleAr: "خصم العناية الصيفية ٢٠٪",
+        valueLabel: "20%",
+        status: "used",
+        orderId: "ARC-4872",
+        usedAt: "2026-08-15T11:20:00",
+        assignedAt: "2026-08-01T09:00:00",
+      },
+      {
+        code: "GOLD25",
+        titleEn: "Gold tier exclusive",
+        titleAr: "حصري للمستوى الذهبي",
+        valueLabel: "25%",
+        status: "unused",
+        orderId: null,
+        usedAt: null,
+        assignedAt: "2026-08-12T08:00:00",
+      },
+    ],
+    5: [
+      {
+        code: "WELCOME15",
+        titleEn: "Welcome offer",
+        titleAr: "عرض الترحيب",
+        valueLabel: "15%",
+        status: "used",
+        orderId: "ARC-4211",
+        usedAt: "2026-08-12T09:00:00",
+        assignedAt: "2026-07-22T09:35:00",
+      },
+    ],
+    6: [
+      {
+        code: "NEWMEMBER10",
+        titleEn: "New member welcome",
+        titleAr: "خصم الأعضاء الجدد",
+        valueLabel: "10%",
+        status: "used",
+        orderId: "ARC-4102",
+        usedAt: "2026-08-11T18:20:00",
+        assignedAt: "2026-07-20T11:05:00",
+      },
+    ],
+    8: [
+      {
+        code: "WINBACK15",
+        titleEn: "Win-back 15%",
+        titleAr: "استعادة ١٥٪",
+        valueLabel: "15%",
+        status: "expired",
+        orderId: null,
+        usedAt: null,
+        assignedAt: "2026-05-02T13:05:00",
+      },
+    ],
+    9: [
+      {
+        code: "NEWMEMBER10",
+        titleEn: "First-order coupon",
+        titleAr: "كوبون الطلب الأول",
+        valueLabel: "10%",
+        status: "unused",
+        orderId: null,
+        usedAt: null,
+        assignedAt: "2026-08-02T09:05:00",
+      },
+    ],
+  };
+
+  return byId[customer.id] ?? [];
+}
+
+export function createCrmCustomerSeed(): CrmCustomer[] {
+  const rows: CrmCustomerSeed[] = [
+    {
+      id: 1,
+      nameEn: "Fatima Al-Rashidi",
+      nameAr: "فاطمة الراشدي",
+      email: "fatima@example.com",
+      phone: "+965 9988 7766",
+      avatar: "F",
+      status: "active",
+      joinedAt: "2024-01-10T09:15:00",
+      lastOrderAt: "2026-08-15T11:20:00",
+      ordersCount: 28,
+      spent: 284.5,
+      tags: ["vip", "high_value"],
+      loyalty: { points: 2450, lifetimeEarned: 2845, lifetimeRedeemed: 395, tier: "Gold" },
+      carePlan: {
+        id: "CP-1041",
+        status: "ACTIVE",
+        frequency: "MONTHLY",
+        nextDeliveryAt: "2026-09-12T08:00:00",
+        itemsEn: "Cetaphil Cream 250g · Vitamin C 1000mg",
+        itemsAr: "كريم سيتافيل ٢٥٠جم · فيتامين سي ١٠٠٠ملغ",
+      },
+      addresses: [
+        {
+          id: 1,
+          titleEn: "Home — Salmiya",
+          titleAr: "المنزل — السالمية",
+          lineEn: "Block 4, Street 12, House 18, Salmiya",
+          lineAr: "قطعة ٤، شارع ١٢، منزل ١٨، السالمية",
+          phone: "+965 9988 7766",
+          isDefault: true,
+        },
+      ],
+      orders: [
+        {
+          id: "ARC-4872",
+          placedAt: "2026-08-15T11:20:00",
+          total: 18.5,
+          status: "delivered",
+          paymentEn: "KNET",
+          paymentAr: "كي نت",
+          items: 3,
+        },
+        {
+          id: "ARC-4710",
+          placedAt: "2026-07-18T16:40:00",
+          total: 22.75,
+          status: "delivered",
+          paymentEn: "COD",
+          paymentAr: "الدفع عند الاستلام",
+          items: 2,
+        },
+        {
+          id: "ARC-4502",
+          placedAt: "2026-06-20T10:05:00",
+          total: 31.2,
+          status: "delivered",
+          paymentEn: "Apple Pay",
+          paymentAr: "آبل باي",
+          items: 4,
+        },
+      ],
+      prescriptions: [
+        {
+          id: "RX-2025-441",
+          productEn: "Augmentin 625mg",
+          productAr: "أوجمنتين ٦٢٥ملغ",
+          status: "pending",
+          uploadedAt: "2026-08-15T09:00:00",
+        },
+      ],
+      notes: [
+        note(
+          1,
+          "Prefers evening delivery after 6pm. VIP — waive delivery fee on Care Plan boxes.",
+          "Sara (CS)",
+          "delivery",
+          "2026-08-10T14:22:00",
+        ),
+      ],
+      timeline: [
+        event(1, "prescription", "Prescription RX-2025-441 uploaded", "تم رفع الوصفة RX-2025-441", "2026-08-15T09:00:00"),
+        event(2, "order", "Order ARC-4872 delivered", "تم تسليم الطلب ARC-4872", "2026-08-15T11:20:00"),
+        event(35, "review", "Reviewed Cetaphil Cream 250g (5★)", "قيّمت كريم سيتافيل ٢٥٠جم (٥★)", "2026-08-16T10:00:00"),
+        event(3, "care_plan", "Care Plan CP-1041 renewed", "تم تجديد خطة العناية CP-1041", "2026-08-12T08:00:00"),
+        event(4, "loyalty", "Earned 185 points", "اكتسبت ١٨٥ نقطة", "2026-08-15T11:25:00"),
+        event(5, "note", "Staff note added", "أُضيفت ملاحظة داخلية", "2026-08-10T14:22:00"),
+        event(6, "registered", "Account created", "تم إنشاء الحساب", "2024-01-10T09:15:00"),
+      ],
+    },
+    {
+      id: 2,
+      nameEn: "Mohammed Al-Sabah",
+      nameAr: "محمد الصباح",
+      email: "m.sabah@example.com",
+      phone: "+965 9977 8855",
+      avatar: "M",
+      status: "active",
+      joinedAt: "2024-03-15T12:00:00",
+      lastOrderAt: "2026-08-14T08:30:00",
+      ordersCount: 14,
+      spent: 142.75,
+      tags: ["care_plan"],
+      loyalty: { points: 980, lifetimeEarned: 1428, lifetimeRedeemed: 448, tier: "Silver" },
+      carePlan: {
+        id: "CP-0882",
+        status: "ACTIVE",
+        frequency: "BIWEEKLY",
+        nextDeliveryAt: "2026-09-04T08:00:00",
+        itemsEn: "Omega-3 / 90 Caps · Panadol Extra",
+        itemsAr: "أوميغا-٣ / ٩٠ كبسولة · بنادول إكسترا",
+      },
+      addresses: [
+        {
+          id: 2,
+          titleEn: "Office — Kuwait City",
+          titleAr: "المكتب — مدينة الكويت",
+          lineEn: "Sharq, Ahmad Al-Jaber St, Tower 5",
+          lineAr: "شرق، شارع أحمد الجابر، برج ٥",
+          phone: "+965 9977 8855",
+          isDefault: true,
+        },
+      ],
+      orders: [
+        {
+          id: "ARC-4651",
+          placedAt: "2026-08-14T08:30:00",
+          total: 16.4,
+          status: "delivered",
+          paymentEn: "KNET",
+          paymentAr: "كي نت",
+          items: 2,
+        },
+        {
+          id: "ARC-4490",
+          placedAt: "2026-07-31T19:10:00",
+          total: 11.2,
+          status: "delivered",
+          paymentEn: "COD",
+          paymentAr: "الدفع عند الاستلام",
+          items: 1,
+        },
+      ],
+      prescriptions: [
+        {
+          id: "RX-2025-440",
+          productEn: "Concor 5mg",
+          productAr: "كونكور ٥ملغ",
+          status: "approved",
+          uploadedAt: "2026-08-14T07:50:00",
+        },
+      ],
+      notes: [
+        note(2, "Call before delivery — security desk at Tower 5.", "Ali (Ops)", "call", "2026-08-01T10:00:00"),
+      ],
+      timeline: [
+        event(7, "order", "Order ARC-4651 delivered", "تم تسليم الطلب ARC-4651", "2026-08-14T08:30:00"),
+        event(8, "prescription", "Prescription approved", "تمت الموافقة على الوصفة", "2026-08-14T10:00:00"),
+        event(9, "care_plan", "Care Plan box dispatched", "تم إرسال صندوق خطة العناية", "2026-07-31T07:00:00"),
+        event(10, "registered", "Account created", "تم إنشاء الحساب", "2024-03-15T12:00:00"),
+      ],
+    },
+    {
+      id: 3,
+      nameEn: "Sara Hassan",
+      nameAr: "سارة حسن",
+      email: "sara.h@gmail.com",
+      phone: "+965 9944 3322",
+      avatar: "S",
+      status: "active",
+      joinedAt: "2024-02-20T08:40:00",
+      lastOrderAt: "2026-08-14T13:15:00",
+      ordersCount: 21,
+      spent: 198.1,
+      tags: ["vip"],
+      loyalty: { points: 1870, lifetimeEarned: 1981, lifetimeRedeemed: 111, tier: "Gold" },
+      carePlan: {
+        id: "CP-0910",
+        status: "PAUSED",
+        frequency: "WEEKLY",
+        nextDeliveryAt: "2026-09-20T08:00:00",
+        itemsEn: "La Roche-Posay SPF50+ · Neutrogena Hydro Boost",
+        itemsAr: "لاروش بوزيه SPF50+ · جل نيوتروجينا هيدرو",
+      },
+      addresses: [
+        {
+          id: 3,
+          titleEn: "Home — Hawally",
+          titleAr: "المنزل — حولي",
+          lineEn: "Block 2, Street 7, Hawally",
+          lineAr: "قطعة ٢، شارع ٧، حولي",
+          phone: "+965 9944 3322",
+          isDefault: true,
+        },
+      ],
+      orders: [
+        {
+          id: "ARC-4320",
+          placedAt: "2026-08-14T13:15:00",
+          total: 31.2,
+          status: "shipped",
+          paymentEn: "Apple Pay",
+          paymentAr: "آبل باي",
+          items: 3,
+        },
+      ],
+      prescriptions: [
+        {
+          id: "RX-2025-439",
+          productEn: "Augmentin 625mg",
+          productAr: "أوجمنتين ٦٢٥ملغ",
+          status: "rejected",
+          uploadedAt: "2026-08-13T16:00:00",
+        },
+      ],
+      notes: [
+        note(
+          3,
+          "Paused Care Plan until September — travelling. Resume on 20 Sep.",
+          "Sara (CS)",
+          "general",
+          "2026-08-08T11:00:00",
+        ),
+      ],
+      timeline: [
+        event(11, "order", "Order ARC-4320 shipped", "تم شحن الطلب ARC-4320", "2026-08-14T13:15:00"),
+        event(36, "review", "Reviewed La Roche-Posay SPF50+ (4★)", "قيّمت لاروش بوزيه SPF50+ (٤★)", "2026-08-10T12:20:00"),
+        event(12, "payment", "Payment received KWD 31.200", "تم استلام الدفع ٣١.٢٠٠ د.ك", "2026-08-14T13:16:00"),
+        event(13, "care_plan", "Care Plan paused by staff", "أوقفت الإدارة خطة العناية", "2026-08-08T11:00:00"),
+        event(14, "registered", "Account created", "تم إنشاء الحساب", "2024-02-20T08:40:00"),
+      ],
+    },
+    {
+      id: 4,
+      nameEn: "Ahmed Al-Mutawa",
+      nameAr: "أحمد المطوع",
+      email: "ahmed.m@kw.com",
+      phone: "+965 9933 1100",
+      avatar: "A",
+      status: "active",
+      joinedAt: "2024-05-01T10:00:00",
+      lastOrderAt: "2026-08-13T17:45:00",
+      ordersCount: 5,
+      spent: 48.2,
+      tags: [],
+      loyalty: { points: 340, lifetimeEarned: 482, lifetimeRedeemed: 142, tier: "Bronze" },
+      carePlan: null,
+      addresses: [
+        {
+          id: 4,
+          titleEn: "Home — Jahra",
+          titleAr: "المنزل — الجهراء",
+          lineEn: "Block 5, Jahra",
+          lineAr: "قطعة ٥، الجهراء",
+          phone: "+965 9933 1100",
+          isDefault: true,
+        },
+      ],
+      orders: [
+        {
+          id: "ARC-4288",
+          placedAt: "2026-08-13T17:45:00",
+          total: 9.4,
+          status: "processing",
+          paymentEn: "COD",
+          paymentAr: "الدفع عند الاستلام",
+          items: 1,
+        },
+        {
+          id: "ARC-3901",
+          placedAt: "2026-06-02T12:00:00",
+          total: 12.1,
+          status: "delivered",
+          paymentEn: "KNET",
+          paymentAr: "كي نت",
+          items: 2,
+        },
+      ],
+      prescriptions: [
+        {
+          id: "RX-2025-438",
+          productEn: "Metformin 500mg",
+          productAr: "ميتفورمين ٥٠٠ملغ",
+          status: "pending",
+          uploadedAt: "2026-08-13T16:30:00",
+        },
+      ],
+      notes: [],
+      timeline: [
+        event(15, "order", "Order ARC-4288 processing", "الطلب ARC-4288 قيد التجهيز", "2026-08-13T17:45:00"),
+        event(37, "review", "Reviewed Vitamin C 1000mg (3★, pending)", "قيّمت فيتامين سي ١٠٠٠ملغ (٣★، قيد المراجعة)", "2026-08-13T18:00:00"),
+        event(16, "prescription", "Prescription uploaded", "تم رفع وصفة طبية", "2026-08-13T16:30:00"),
+        event(17, "registered", "Account created", "تم إنشاء الحساب", "2024-05-01T10:00:00"),
+      ],
+    },
+    {
+      id: 5,
+      nameEn: "Lana Qabandi",
+      nameAr: "لانا القبندي",
+      email: "lana.q@kw.com",
+      phone: "+965 9955 4433",
+      avatar: "L",
+      status: "active",
+      joinedAt: "2024-01-28T15:20:00",
+      lastOrderAt: "2026-08-12T09:00:00",
+      ordersCount: 17,
+      spent: 165.4,
+      tags: ["vip"],
+      loyalty: { points: 1200, lifetimeEarned: 1654, lifetimeRedeemed: 454, tier: "Silver" },
+      carePlan: {
+        id: "CP-0771",
+        status: "ACTIVE",
+        frequency: "MONTHLY",
+        nextDeliveryAt: "2026-09-08T08:00:00",
+        itemsEn: "Biotin Gummies 60ct · The Ordinary serum",
+        itemsAr: "حلوى بيوتين ٦٠ · سيروم ذا أورديناري",
+      },
+      addresses: [
+        {
+          id: 5,
+          titleEn: "Home — Sabah Al-Salem",
+          titleAr: "المنزل — صباح السالم",
+          lineEn: "Block 1, Sabah Al-Salem",
+          lineAr: "قطعة ١، صباح السالم",
+          phone: "+965 9955 4433",
+          isDefault: true,
+        },
+      ],
+      orders: [
+        {
+          id: "ARC-4211",
+          placedAt: "2026-08-12T09:00:00",
+          total: 14.8,
+          status: "delivered",
+          paymentEn: "KNET",
+          paymentAr: "كي نت",
+          items: 2,
+        },
+      ],
+      prescriptions: [
+        {
+          id: "RX-2025-437",
+          productEn: "Levothyroxine 50mcg",
+          productAr: "ليفوثيروكسين ٥٠ مكجم",
+          status: "approved",
+          uploadedAt: "2026-08-12T08:10:00",
+        },
+      ],
+      notes: [note(4, "Gold-path candidate — high skincare AOV.", "Mona (CRM)", "general", "2026-07-22T09:30:00")],
+      timeline: [
+        event(18, "order", "Order ARC-4211 delivered", "تم تسليم الطلب ARC-4211", "2026-08-12T09:00:00"),
+        event(19, "coupon", "Assigned WELCOME15", "تم تعيين الكوبون WELCOME15", "2026-07-22T09:35:00"),
+        event(20, "registered", "Account created", "تم إنشاء الحساب", "2024-01-28T15:20:00"),
+      ],
+    },
+    {
+      id: 6,
+      nameEn: "Noor Al-Ahmad",
+      nameAr: "نور الأحمد",
+      email: "noor.a@kw.com",
+      phone: "+965 9966 5544",
+      avatar: "N",
+      status: "active",
+      joinedAt: "2026-07-20T11:00:00",
+      lastOrderAt: "2026-08-11T18:20:00",
+      ordersCount: 1,
+      spent: 12.35,
+      tags: [],
+      loyalty: { points: 120, lifetimeEarned: 123, lifetimeRedeemed: 3, tier: "Bronze" },
+      carePlan: null,
+      addresses: [
+        {
+          id: 6,
+          titleEn: "Home — Fahaheel",
+          titleAr: "المنزل — الفحيحيل",
+          lineEn: "Block 8, Fahaheel",
+          lineAr: "قطعة ٨، الفحيحيل",
+          phone: "+965 9966 5544",
+          isDefault: true,
+        },
+      ],
+      orders: [
+        {
+          id: "ARC-4102",
+          placedAt: "2026-08-11T18:20:00",
+          total: 12.35,
+          status: "delivered",
+          paymentEn: "COD",
+          paymentAr: "الدفع عند الاستلام",
+          items: 1,
+        },
+      ],
+      prescriptions: [],
+      notes: [note(5, "New buyer — send Care Plan intro after first delivery.", "Sara (CS)", "general", "2026-08-12T09:00:00")],
+      timeline: [
+        event(21, "order", "First order ARC-4102 delivered", "تم تسليم أول طلب ARC-4102", "2026-08-11T18:20:00"),
+        event(22, "notification", "Welcome notification sent", "أُرسل إشعار الترحيب", "2026-07-20T11:05:00"),
+        event(23, "registered", "Account created", "تم إنشاء الحساب", "2026-07-20T11:00:00"),
+      ],
+    },
+    {
+      id: 7,
+      nameEn: "Khalid Al-Mansouri",
+      nameAr: "خالد المنصوري",
+      email: "k.mans@kw.com",
+      phone: "+965 9911 2233",
+      avatar: "K",
+      status: "active",
+      joinedAt: "2023-12-05T09:00:00",
+      lastOrderAt: "2026-08-10T12:40:00",
+      ordersCount: 35,
+      spent: 342.8,
+      tags: ["vip", "high_value"],
+      loyalty: { points: 3100, lifetimeEarned: 3428, lifetimeRedeemed: 328, tier: "Gold" },
+      carePlan: {
+        id: "CP-0550",
+        status: "ACTIVE",
+        frequency: "WEEKLY",
+        nextDeliveryAt: "2026-09-01T08:00:00",
+        itemsEn: "Panadol Extra · Vitamin C · Omega-3",
+        itemsAr: "بنادول إكسترا · فيتامين سي · أوميغا-٣",
+      },
+      addresses: [
+        {
+          id: 7,
+          titleEn: "Home — Abdulla Al-Mubarak",
+          titleAr: "المنزل — عبدالله المبارك",
+          lineEn: "Block 3, Abdulla Al-Mubarak",
+          lineAr: "قطعة ٣، عبدالله المبارك",
+          phone: "+965 9911 2233",
+          isDefault: true,
+        },
+      ],
+      orders: [
+        {
+          id: "ARC-4019",
+          placedAt: "2026-08-10T12:40:00",
+          total: 27.9,
+          status: "delivered",
+          paymentEn: "KNET",
+          paymentAr: "كي نت",
+          items: 4,
+        },
+      ],
+      prescriptions: [
+        {
+          id: "RX-2025-436",
+          productEn: "Atorvastatin 20mg",
+          productAr: "أتورفاستاتين ٢٠ملغ",
+          status: "approved",
+          uploadedAt: "2026-08-11T08:00:00",
+        },
+      ],
+      notes: [
+        note(6, "Highest LTV. Do not delay Care Plan boxes.", "Mona (CRM)", "delivery", "2026-06-01T08:00:00"),
+      ],
+      timeline: [
+        event(24, "loyalty", "Redeemed 300 points", "استبدل ٣٠٠ نقطة", "2026-08-10T12:45:00"),
+        event(38, "review", "Reviewed Panadol Extra (5★)", "قيّمت بنادول إكسترا (٥★)", "2026-08-10T13:00:00"),
+        event(25, "order", "Order ARC-4019 delivered", "تم تسليم الطلب ARC-4019", "2026-08-10T12:40:00"),
+        event(26, "registered", "Account created", "تم إنشاء الحساب", "2023-12-05T09:00:00"),
+      ],
+    },
+    {
+      id: 8,
+      nameEn: "Maryam Al-Kindi",
+      nameAr: "مريم الكندي",
+      email: "maryam.k@kw.com",
+      phone: "+965 9922 3344",
+      avatar: "M",
+      status: "inactive",
+      joinedAt: "2024-03-03T14:10:00",
+      lastOrderAt: "2026-04-09T10:00:00",
+      ordersCount: 11,
+      spent: 98.65,
+      tags: ["inactive"],
+      loyalty: { points: 760, lifetimeEarned: 986, lifetimeRedeemed: 226, tier: "Silver" },
+      carePlan: {
+        id: "CP-0612",
+        status: "CANCELLED",
+        frequency: "MONTHLY",
+        nextDeliveryAt: "2026-05-01T08:00:00",
+        itemsEn: "Cetaphil Cream 250g",
+        itemsAr: "كريم سيتافيل ٢٥٠جم",
+      },
+      addresses: [
+        {
+          id: 8,
+          titleEn: "Home — Khaitan",
+          titleAr: "المنزل — خيطان",
+          lineEn: "Block 6, Khaitan",
+          lineAr: "قطعة ٦، خيطان",
+          phone: "+965 9922 3344",
+          isDefault: true,
+        },
+      ],
+      orders: [
+        {
+          id: "ARC-3011",
+          placedAt: "2026-04-09T10:00:00",
+          total: 8.5,
+          status: "delivered",
+          paymentEn: "COD",
+          paymentAr: "الدفع عند الاستلام",
+          items: 1,
+        },
+      ],
+      prescriptions: [
+        {
+          id: "RX-2025-434",
+          productEn: "Omeprazole 20mg",
+          productAr: "أوميبرازول ٢٠ملغ",
+          status: "pending",
+          uploadedAt: "2026-06-09T11:00:00",
+        },
+      ],
+      notes: [
+        note(
+          7,
+          "Cancelled Care Plan after late delivery complaint. Win-back coupon ready.",
+          "Ali (Ops)",
+          "complaint",
+          "2026-05-02T13:00:00",
+        ),
+      ],
+      timeline: [
+        event(27, "care_plan", "Care Plan cancelled", "أُلغيت خطة العناية", "2026-05-01T09:00:00"),
+        event(28, "order", "Last order ARC-3011", "آخر طلب ARC-3011", "2026-04-09T10:00:00"),
+        event(29, "registered", "Account created", "تم إنشاء الحساب", "2024-03-03T14:10:00"),
+      ],
+    },
+    {
+      id: 9,
+      nameEn: "Yousef Al-Enezi",
+      nameAr: "يوسف العنزي",
+      email: "y.enezi@kw.com",
+      phone: "+965 9900 1122",
+      avatar: "Y",
+      status: "active",
+      joinedAt: "2026-08-01T16:00:00",
+      lastOrderAt: null,
+      ordersCount: 0,
+      spent: 0,
+      tags: [],
+      loyalty: { points: 0, lifetimeEarned: 0, lifetimeRedeemed: 0, tier: "Bronze" },
+      carePlan: null,
+      addresses: [],
+      orders: [],
+      prescriptions: [],
+      notes: [note(8, "Registered via OTP, no first order yet.", "Sara (CS)", "general", "2026-08-02T09:00:00")],
+      timeline: [
+        event(30, "notification", "First-order coupon sent", "أُرسل كوبون الطلب الأول", "2026-08-02T09:05:00"),
+        event(31, "registered", "Account created", "تم إنشاء الحساب", "2026-08-01T16:00:00"),
+      ],
+    },
+    {
+      id: 10,
+      nameEn: "Hessa Al-Ali",
+      nameAr: "حصة العلي",
+      email: "hessa.ali@kw.com",
+      phone: "+965 9888 2211",
+      avatar: "H",
+      status: "active",
+      joinedAt: "2025-11-12T10:30:00",
+      lastOrderAt: "2026-08-08T15:10:00",
+      ordersCount: 9,
+      spent: 221.4,
+      tags: ["high_value"],
+      loyalty: { points: 1540, lifetimeEarned: 2214, lifetimeRedeemed: 674, tier: "Gold" },
+      carePlan: null,
+      addresses: [
+        {
+          id: 9,
+          titleEn: "Home — Messila",
+          titleAr: "المنزل — المسيلة",
+          lineEn: "Block 7, Messila",
+          lineAr: "قطعة ٧، المسيلة",
+          phone: "+965 9888 2211",
+          isDefault: true,
+        },
+      ],
+      orders: [
+        {
+          id: "ARC-3880",
+          placedAt: "2026-08-08T15:10:00",
+          total: 44.6,
+          status: "delivered",
+          paymentEn: "Apple Pay",
+          paymentAr: "آبل باي",
+          items: 5,
+        },
+        {
+          id: "ARC-3604",
+          placedAt: "2026-07-01T11:00:00",
+          total: 38.2,
+          status: "delivered",
+          paymentEn: "KNET",
+          paymentAr: "كي نت",
+          items: 4,
+        },
+      ],
+      prescriptions: [],
+      notes: [],
+      timeline: [
+        event(32, "order", "Order ARC-3880 delivered", "تم تسليم الطلب ARC-3880", "2026-08-08T15:10:00"),
+        event(33, "loyalty", "Reached Gold tier", "وصلت إلى المستوى الذهبي", "2026-07-01T11:10:00"),
+        event(34, "registered", "Account created", "تم إنشاء الحساب", "2025-11-12T10:30:00"),
+      ],
+    },
+  ];
+
+  return rows.map((customer) => ({
+    ...customer,
+    payments: paymentsForCustomer(customer),
+    reviews: reviewsForCustomer(customer),
+    coupons: couponsForCustomer(customer),
+  }));
+}

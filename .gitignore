@@ -4,3 +4,24 @@
 !.vscode/extensions.json
 *.sw?
 *.local
+
+# Dependencies (website/, admin/)
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+.vite/
+
+# Environment (never commit secrets)
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*

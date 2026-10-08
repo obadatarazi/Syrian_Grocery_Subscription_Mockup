@@ -1,121 +1,97 @@
-# حصري — نموذج اشتراك التموين
+# حصري — Syrian Grocery Subscription
 
-نموذج تجريبي ثابت (HTML / CSS / JS) لاشتراك تموين بأسعار المصنع في سوريا.
-واجهة عربية فقط (RTL). لا خلفية ولا قاعدة بيانات ولا خطوة بناء.
+Static clickable mock-ups for **حصري**, an affordable grocery subscription service in Syria (factory prices). Arabic UI only (RTL). No backend, database, or live payment integrations — demo state lives in memory and resets on reload.
 
-## How to Open
-
-1. Open this folder.
-2. Double-click `index.html` to open it in your browser.
-3. Click through the pages — every screen is a standalone HTML file using shared CSS/JS.
-
-> Tip: if your browser blocks scripts on `file://`, run `python3 -m http.server` in this folder and open the URL it prints.
-
-## Folder Structure
+## Project structure
 
 ```
 .
-├── index.html          # Home (US-01)
-├── catalog.html        # Catalog (US-02)
-├── signup.html         # Sign-up (US-03)
-├── subscribe.html      # Subscribe + Sham Cash mock (US-04, US-05)
-├── cart.html           # Cart & checkout (US-06)
-├── orders.html         # Orders with status (US-07)
-├── order-history.html  # Order history (US-08)
-├── account.html        # Account & subscription (US-09)
-├── admin.html          # Admin dashboard (US-10)
-├── fulfilment.html     # Fulfilment by product (US-11)
-├── dispatch.html       # Dispatch / deliver (US-12)
-├── products.html       # Product & tier management (US-13, US-14)
-├── css/style.css
-├── js/
-│   ├── data.js         # Demo data + SUBSCRIPTION_FEE (500 SYP)
-│   ├── i18n.js         # Arabic UI strings (RTL)
-│   ├── common.js       # Header, footer, cart, toast
-│   └── pages/          # One script per page
-├── assets/             # Placeholder icons (no external images)
+├── website/          # React + Vite + Tailwind storefront (customer flows)
+├── admin/            # React + Vite + Tailwind admin dashboard
+├── legacy/           # Original plain HTML/CSS/JS mock (pre-migration)
+├── requirements.md   # Stakeholder requirements & user stories
 └── README.md
 ```
 
-## Screen List & User Story Mapping
+| Folder | Role |
+|--------|------|
+| `website/` | Customer-facing storefront, adapted from the Aroma Care Website prototype for حصري |
+| `admin/` | Admin console, adapted from the Aroma Care Admin prototype for حصري (adaptation in progress) |
+| `legacy/` | Earlier plain HTML/CSS/JS mock — open HTML files directly; see notes below |
 
-| Page | File | User Story |
-|------|------|------------|
-| Home | index.html | US-01 |
-| Catalog | catalog.html | US-02 |
-| Sign Up | signup.html | US-03 |
-| Subscribe | subscribe.html | US-04 |
-| Sham Cash Payment (modal) | subscribe.html | US-05 |
-| Cart & Checkout | cart.html | US-06 |
-| Orders | orders.html | US-07 |
-| Order History | order-history.html | US-08 |
-| Account | account.html | US-09 |
-| Admin Dashboard | admin.html | US-10 |
-| Fulfilment | fulfilment.html | US-11 |
-| Dispatch | dispatch.html | US-12 |
-| Product Management | products.html | US-13 |
-| Tier Management & Preview | products.html | US-14 |
+## Brand & locale
 
-## Demo Toggles & Special Inputs
+- Brand name: **حصري**
+- Language: Arabic only (RTL)
+- Currency: SYP (ل.س)
+- Subscription fee: **500 SYP/month** (`SUBSCRIPTION_FEE` in demo data)
+- Payment: Sham Cash mock (Pay = success, Cancel = failure) — no real charges
 
-### Language
-- Arabic (RTL) only — no English version.
+## How to run
 
-### رقم مكرر عند التسجيل
-- أدخل الهاتف **`0000`** لرؤية: «هذا الرقم مستخدم بالفعل».
+Requires Node.js and npm. Run each app in its own terminal.
 
-### دفع Sham Cash (وهمي)
-- اشترك → **تأكيد والدفع** يفتح نافذة Sham Cash.
-- **ادفع** = نجاح + تفعيل الاشتراك.
-- **إلغاء** = فشل. لا دفع حقيقي.
+### Storefront (`website/`)
 
-### Cart Delivery Restriction
-- City other than Damascus → “Delivery is not yet available in your city” and checkout disabled.
-- Cart is pre-seeded with sample items so checkout is demoable on open.
-
-### Expired Subscription
-- Account → demo buttons **Active / Expired / Cancelled**.
-- With **Expired**, adding to cart (or visiting catalog) shows the renewal prompt.
-
-### Cancel Subscription
-- Account → **Cancel Subscription** → confirmation → status message: “Ends at end of current period.”
-
-### Admin Dashboard Empty State
-- Toggle on the admin page switches between demo numbers and all zeros.
-
-### Order History Empty State
-- Toggle on order history switches between sample orders and “You have no orders yet” + catalog link.
-
-### Empty Catalog Category
-- Catalog → **Frozen Goods / المجمدات** → “This category is currently unavailable.”
-
-### Product Without Retail Price
-- **سميد الناصر / Al-Nasser Semolina** shows factory price only (no savings).
-
-### Syrian brands in the catalog
-- حسين الناصر، سيدي هشام، المراعي، الدرة، هنا، الراعي، الغوطة، أبيدو، السمير/الحسني — plus a competing baladi ghee pack for the exclusive-tier demo.
-
-### Tier Preview
-- Products page → change supplier tier. Exclusive hides other brands in that category. **المراعي** is exclusive for ghee/dairy fats; switching it to standard reveals **سمن بلدي** again.
-
-### Dispatch Late Flag
-- ORD-003 was delivered after its estimated date and shows a **Late** badge.
-
-### Fulfilment Unpaid Orders
-- ORD-004 is unpaid and does not appear when grouping Damascus orders by product.
-
-## Subscription Fee
-
-In `js/data.js`:
-
-```js
-const SUBSCRIPTION_FEE = 500; // 500 SYP / month
+```bash
+cd website
+npm install
+npm run dev
 ```
 
-All prices display in SYP (ل.س). Change that constant to update the fee across the mock-up.
+Dev server defaults to [http://localhost:5173](http://localhost:5173).
+
+### Admin (`admin/`)
+
+```bash
+cd admin
+npm install
+npm run dev
+```
+
+Dev server defaults to [http://localhost:5174](http://localhost:5174).
+
+Optional production-style build:
+
+```bash
+npm run build
+npm run preview
+```
+
+## Static mock — what that means
+
+- No real API, auth server, or database
+- Flows and screens are for stakeholder demos
+- In-memory / mock services; reloading clears demo edits
+- Sham Cash and toasts replace real payments and WhatsApp/SMS
+
+Product requirements and user stories (US-01–US-14) live in [`requirements.md`](./requirements.md). The tech stack there now allows React + Vite + Tailwind prototypes in `website/` and `admin/` (the original “plain HTML only” constraint no longer applies to the primary mock).
+
+## Legacy HTML mock
+
+The first mock (standalone HTML pages, shared CSS/JS) is under [`legacy/`](./legacy/).
+
+```bash
+cd legacy
+# open index.html in a browser, or:
+python3 -m http.server
+```
+
+Use `legacy/` only if you need the original HTML click-through. New work targets `website/` and `admin/`.
+
+## Screen / user story map (product scope)
+
+| Area | User stories |
+|------|----------------|
+| Home, catalog, sign-up | US-01–US-03 |
+| Subscribe + Sham Cash | US-04–US-05 |
+| Cart, orders, history, account | US-06–US-09 |
+| Admin dashboard, fulfilment, dispatch, products/tiers | US-10–US-14 |
+
+Exact page mapping and demo toggles for the HTML version are documented historically in `legacy/` page files and the previous root README content; React apps implement the same product scope over time.
 
 ## Notes
 
-- All demo state lives in JavaScript memory. Reloading a page resets cart, language, and edits.
-- Sample customers: active, expired, cancelled.
-- Sample orders for the demo user: confirmed, dispatched, and delivered (one each).
+- Keep secrets out of the repo — use `.env` locally (gitignored); never commit credentials
+- `node_modules/` and `dist/` are ignored for both apps
+- Stakeholder source of truth for flows: [`requirements.md`](./requirements.md)
